@@ -50,6 +50,8 @@ class Coingate extends PaymentModule
         $this->author = 'CoinGate.com';
         $this->is_eu_compatible = 1;
         $this->controllers = array('payment', 'redirect', 'callback', 'cancel');
+        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
+        $this->module_key = '1b837e1e56098e018df1dd08e79e8ab4';
 
         $this->currencies = true;
         $this->currencies_mode = 'checkbox';
