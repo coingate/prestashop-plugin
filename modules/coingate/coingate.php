@@ -1,5 +1,5 @@
 <?php
-/*
+/**
 * 2016 CoinGate
 *
 * NOTICE OF LICENSE
@@ -143,23 +143,31 @@ class Coingate extends PaymentModule
         $order_invalid->logable = 0;
 
         if ($order_pending->add()) {
-            copy(_PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_pending->id . '.png');
+            copy(
+                _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
+                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_pending->id . '.png'
+            );
         }
 
         if ($order_expired->add()) {
-            copy(_PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_expired->id . '.png');
+            copy(
+                _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
+                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_expired->id . '.png'
+            );
         }
 
         if ($order_confirming->add()) {
-            copy(_PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_confirming->id . '.png');
+            copy(
+                _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
+                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_confirming->id . '.png'
+            );
         }
 
         if ($order_invalid->add()) {
-            copy(_PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_invalid->id . '.png');
+            copy(
+                _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
+                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_invalid->id . '.png'
+            );
         }
 
         Configuration::updateValue('COINGATE_PENDING', $order_pending->id);
@@ -168,7 +176,10 @@ class Coingate extends PaymentModule
         Configuration::updateValue('COINGATE_INVALID', $order_invalid->id);
 
 
-        if (!parent::install() || !$this->registerHook('payment') || !$this->registerHook('displayPaymentEU') || !$this->registerHook('paymentReturn')) {
+        if (!parent::install()
+            || !$this->registerHook('payment')
+            || !$this->registerHook('displayPaymentEU')
+            || !$this->registerHook('paymentReturn')) {
             return false;
         }
 
@@ -274,11 +285,13 @@ class Coingate extends PaymentModule
 
     public function hookPayment($params)
     {
-        if (!$this->active)
-        return;
+        if (!$this->active) {
+            return;
+        }
 
-        if (!$this->checkCurrency($params['cart']))
-        return;
+        if (!$this->checkCurrency($params['cart'])) {
+            return;
+        }
 
         $this->smarty->assign(array(
             'this_path'     => $this->_path,
@@ -293,93 +306,97 @@ class Coingate extends PaymentModule
     {
         $currency_order = new Currency($cart->id_currency);
         $currencies_module = $this->getCurrency($cart->id_currency);
-        if (is_array($currencies_module))
-        foreach ($currencies_module as $currency_module)
-        if ($currency_order->id == $currency_module['id_currency'])
-        return true;
+
+        if (is_array($currencies_module)) {
+            foreach ($currencies_module as $currency_module) {
+                if ($currency_order->id == $currency_module['id_currency']) {
+                    return true;
+                }
+            }
+        }
 
         return false;
     }
 
-public function renderForm()
-{
-    $fields_form = array(
-        'form' => array(
-            'legend' => array(
-                'title' => $this->l('Bitcoin payment via CoinGate'),
-                'icon'  => 'icon-bitcoin'
-            ),
-            'input'  => array(
-                array(
-                    'type'     => 'text',
-                    'label'    => $this->l('APP ID'),
-                    'name'     => 'COINGATE_APP_ID',
-                    'desc'     => $this->l('Your application ID.'),
-                    'required' => true
+    public function renderForm()
+    {
+        $fields_form = array(
+            'form' => array(
+                'legend' => array(
+                    'title' => $this->l('Bitcoin payment via CoinGate'),
+                    'icon'  => 'icon-bitcoin'
                 ),
-                array(
-                    'type'     => 'text',
-                    'label'    => $this->l('API Key'),
-                    'name'     => 'COINGATE_API_KEY',
-                    'desc'     => $this->l('Your application API access key.'),
-                    'required' => true
+                'input'  => array(
+                    array(
+                        'type'     => 'text',
+                        'label'    => $this->l('APP ID'),
+                        'name'     => 'COINGATE_APP_ID',
+                        'desc'     => $this->l('Your application ID.'),
+                        'required' => true
+                    ),
+                    array(
+                        'type'     => 'text',
+                        'label'    => $this->l('API Key'),
+                        'name'     => 'COINGATE_API_KEY',
+                        'desc'     => $this->l('Your application API access key.'),
+                        'required' => true
+                    ),
+                    array(
+                        'type'     => 'text',
+                        'label'    => $this->l('API Secret'),
+                        'name'     => 'COINGATE_API_SECRET',
+                        'desc'     => $this->l('Your application API access secret key.'),
+                        'required' => true
+                    ),
+                    array(
+                        'type'     => 'select',
+                        'label'    => $this->l('Receive Currency'),
+                        'name'     => 'COINGATE_RECEIVE_CURRENCY',
+                        'desc'     => $this->l('Currency you want to receive at CoinGate.com'),
+                        'required' => true,
+                        'options'  => array(
+                            'query' => array(
+                                array(
+                                    'id_option' => 'eur',
+                                    'name'      => 'Euros (€)'
+                                ),
+                                array(
+                                    'id_option' => 'usd',
+                                    'name'      => 'US Dollars ($)'
+                                ),
+                                array(
+                                    'id_option' => 'btc',
+                                    'name'      => 'Bitcoin (฿)'
+                                ),
+                            ),
+                            'id'    => 'id_option',
+                            'name'  => 'name'
+                        )
+                    ),
+                    array(
+                        'type'     => 'select',
+                        'label'    => $this->l('Test Mode'),
+                        'name'     => 'COINGATE_TEST',
+                        'desc'     => $this->l('Use Sandbox instead of production one.'),
+                        'required' => true,
+                        'options'  => array(
+                            'query' => array(
+                                array(
+                                    'id_option' => 0,
+                                    'name'      => 'Off'
+                                ),
+                                array(
+                                    'id_option' => 1,
+                                    'name'      => 'On'
+                                ),
+                            ),
+                            'id'    => 'id_option',
+                            'name'  => 'name'
+                        )
+                    ),
                 ),
-                array(
-                    'type'     => 'text',
-                    'label'    => $this->l('API Secret'),
-                    'name'     => 'COINGATE_API_SECRET',
-                    'desc'     => $this->l('Your application API access secret key.'),
-                    'required' => true
-                ),
-                array(
-                    'type'     => 'select',
-                    'label'    => $this->l('Receive Currency'),
-                    'name'     => 'COINGATE_RECEIVE_CURRENCY',
-                    'desc'     => $this->l('Currency you want to receive at CoinGate.com'),
-                    'required' => true,
-                    'options'  => array(
-                        'query' => array(
-                            array(
-                                'id_option' => 'eur',
-                                'name'      => 'Euros (€)'
-                            ),
-                            array(
-                                'id_option' => 'usd',
-                                'name'      => 'US Dollars ($)'
-                            ),
-                            array(
-                                'id_option' => 'btc',
-                                'name'      => 'Bitcoin (฿)'
-                            ),
-                        ),
-                        'id'    => 'id_option',
-                        'name'  => 'name'
-                    )
-                ),
-                array(
-                    'type'     => 'select',
-                    'label'    => $this->l('Test Mode'),
-                    'name'     => 'COINGATE_TEST',
-                    'desc'     => $this->l('Use Sandbox instead of production one.'),
-                    'required' => true,
-                    'options'  => array(
-                        'query' => array(
-                            array(
-                                'id_option' => 0,
-                                'name'      => 'Off'
-                            ),
-                            array(
-                                'id_option' => 1,
-                                'name'      => 'On'
-                            ),
-                        ),
-                        'id'    => 'id_option',
-                        'name'  => 'name'
-                    )
-                ),
-            ),
-            'submit' => array(
-                'title' => $this->l('Save'),
+                'submit' => array(
+                    'title' => $this->l('Save'),
                 )
             ),
         );

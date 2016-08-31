@@ -3,7 +3,7 @@
     <name>coingate</name>
     <displayName><![CDATA[Bitcoin via CoinGate]]></displayName>
     <version><![CDATA[1.2.0]]></version>
-    <description><![CDATA[Accept Bitcoin payments via CoinGate]]></description>
+    <description><![CDATA[Accept Bitcoin via CoinGate]]></description>
     <author><![CDATA[CoinGate.com]]></author>
     <tab><![CDATA[payments_gateways]]></tab>
     <confirmUninstall><![CDATA[Are you sure you want to delete your details?]]></confirmUninstall>

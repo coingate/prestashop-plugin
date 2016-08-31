@@ -24,7 +24,7 @@
 <div class="row">
     <div class="col-xs-12">
         <p class="payment_module">
-            <a class="cheque" style="background-image: url('{$this_path}../../img/bitcoin-logo.png'); padding-left:150px;  background-size: 100px; background-position: 20px; 50%; background-repeat: no-repeat;" href="{$link->getModuleLink('coingate', 'payment')|escape:'htmlall':'UTF-8'}">
+            <a class="cheque" style="background-image: url('{$this_path|escape:'htmlall':'UTF-8'}../../img/bitcoin-logo.png'); padding-left:150px;  background-size: 100px; background-position: 20px; 50%; background-repeat: no-repeat;" href="{$link->getModuleLink('coingate', 'payment')|escape:'htmlall':'UTF-8'}">
 
                 {l s='Pay with Bitcoin via CoinGate.com' mod='coingate'}
                 <br><span>({l s='order processing will be faster' mod='coingate'})</span>

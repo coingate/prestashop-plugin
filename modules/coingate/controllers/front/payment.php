@@ -1,5 +1,5 @@
 <?php
-/*
+/**
 * 2016 CoinGate
 *
 * NOTICE OF LICENSE

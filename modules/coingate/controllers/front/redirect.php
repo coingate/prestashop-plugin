@@ -1,5 +1,5 @@
 <?php
-/*
+/**
 * 2016 CoinGate
 *
 * NOTICE OF LICENSE
@@ -37,7 +37,9 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
 
         $cart = $this->context->cart;
 
-        if (!$this->module->checkCurrency($cart)) Tools::redirect('index.php?controller=order');
+        if (!$this->module->checkCurrency($cart)) {
+            Tools::redirect('index.php?controller=order');
+        }
 
         $total = (float)number_format($cart->getOrderTotal(true, 3), 2, '.', '');
         $currency = Context::getContext()->currency;
