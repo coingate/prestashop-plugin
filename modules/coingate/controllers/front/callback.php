@@ -80,17 +80,15 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 case 'canceled':
                     $order_status = 'PS_OS_CANCELED';
                     break;
-                case 'pending':
-                    $order_status = 'COINGATE_PENDING';
-                    break;
                 case 'refunded':
                     $order_status = 'PS_OS_REFUND';
                     break;
                 default:
-                    $order_status = 'PS_OS_ERROR';
+                    $order_status = false;
+                    break;
             }
 
-            if ($order_status != 'COINGATE_PENDING') {
+            if ($order_status !== false) {
                 $history = new OrderHistory();
                 $history->id_order = $order->id;
                 $history->changeIdOrderState((int)Configuration::get($order_status), $order->id);
