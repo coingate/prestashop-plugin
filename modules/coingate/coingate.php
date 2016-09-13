@@ -46,7 +46,7 @@ class Coingate extends PaymentModule
     {
         $this->name = 'coingate';
         $this->tab = 'payments_gateways';
-        $this->version = '1.2.0';
+        $this->version = COINGATE_PRESTASHOP_EXTENSION_VERSION;
         $this->author = 'CoinGate.com';
         $this->is_eu_compatible = 1;
         $this->controllers = array('payment', 'redirect', 'callback', 'cancel');
