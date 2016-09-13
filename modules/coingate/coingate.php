@@ -237,7 +237,7 @@ class Coingate extends PaymentModule
 
                 $test = \CoinGate\CoinGate::testConnection();
 
-                if (!$test) {
+                if ($test !== true) {
                     $this->postErrors[] = $this->l($test);
                     coingate_log('[Admin]', $cgConfig, $test);
                 }
