@@ -226,9 +226,9 @@ class Coingate extends PaymentModule
 
             if (empty($this->postErrors)) {
                 $cgConfig = array(
-                    'app_id' => Tools::getValue('COINGATE_APP_ID'),
-                    'api_key' => Tools::getValue('COINGATE_API_KEY'),
-                    'api_secret' => Tools::getValue('COINGATE_API_SECRET'),
+                    'app_id' => $this->stripString(Tools::getValue('COINGATE_APP_ID')),
+                    'api_key' => $this->stripString(Tools::getValue('COINGATE_API_KEY')),
+                    'api_secret' => $this->stripString(Tools::getValue('COINGATE_API_SECRET')),
                     'environment' => intval(Tools::getValue('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
                     'user_agent' => 'CoinGate - Prestashop v'._PS_VERSION_.' Extension v'.COINGATE_PRESTASHOP_EXTENSION_VERSION
                 );
@@ -248,9 +248,9 @@ class Coingate extends PaymentModule
     private function postProcess()
     {
         if (Tools::isSubmit('btnSubmit')) {
-            Configuration::updateValue('COINGATE_APP_ID', Tools::getValue('COINGATE_APP_ID'));
-            Configuration::updateValue('COINGATE_API_KEY', Tools::getValue('COINGATE_API_KEY'));
-            Configuration::updateValue('COINGATE_API_SECRET', Tools::getValue('COINGATE_API_SECRET'));
+            Configuration::updateValue('COINGATE_APP_ID', $this->stripString(Tools::getValue('COINGATE_APP_ID')));
+            Configuration::updateValue('COINGATE_API_KEY', $this->stripString(Tools::getValue('COINGATE_API_KEY')));
+            Configuration::updateValue('COINGATE_API_SECRET', $this->stripString(Tools::getValue('COINGATE_API_SECRET')));
             Configuration::updateValue('COINGATE_RECEIVE_CURRENCY', Tools::getValue('COINGATE_RECEIVE_CURRENCY'));
             Configuration::updateValue('COINGATE_TEST', Tools::getValue('COINGATE_TEST'));
         }
@@ -429,18 +429,18 @@ class Coingate extends PaymentModule
     public function getConfigFieldsValues()
     {
         return array(
-            'COINGATE_APP_ID' => Tools::getValue(
+            'COINGATE_APP_ID' => $this->stripString(Tools::getValue(
                 'COINGATE_APP_ID',
                 Configuration::get('COINGATE_APP_ID')
-            ),
-            'COINGATE_API_KEY' => Tools::getValue(
+            )),
+            'COINGATE_API_KEY' => $this->stripString(Tools::getValue(
                 'COINGATE_API_KEY',
                 Configuration::get('COINGATE_API_KEY')
-            ),
-            'COINGATE_API_SECRET' => Tools::getValue(
+            )),
+            'COINGATE_API_SECRET' => $this->stripString(Tools::getValue(
                 'COINGATE_API_SECRET',
                 Configuration::get('COINGATE_API_SECRET')
-            ),
+            )),
             'COINGATE_RECEIVE_CURRENCY' => Tools::getValue(
                 'COINGATE_RECEIVE_CURRENCY',
                 Configuration::get('COINGATE_RECEIVE_CURRENCY')
@@ -450,5 +450,10 @@ class Coingate extends PaymentModule
                 Configuration::get('COINGATE_TEST')
             ),
         );
+    }
+
+    private function stripString($item)
+    {
+        return preg_replace('/\s+/', '', $item);
     }
 }
