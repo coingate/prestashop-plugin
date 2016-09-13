@@ -229,8 +229,8 @@ class Coingate extends PaymentModule
                     'app_id' => Tools::getValue('COINGATE_APP_ID'),
                     'api_key' => Tools::getValue('COINGATE_API_KEY'),
                     'api_secret' => Tools::getValue('COINGATE_API_SECRET'),
-                    'environment' => Tools::getValue('COINGATE_TEST') == 1 ? 'sandbox' : 'live',
                     'user_agent' => 'CoinGate - Prestashop Extension v' . COINGATE_PRESTASHOP_EXTENSION_VERSION
+                    'environment' => intval(Tools::getValue('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
                 );
 
                 \CoinGate\CoinGate::config($cgConfig);
