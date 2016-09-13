@@ -63,8 +63,8 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
           'app_id' => Configuration::get('COINGATE_APP_ID'),
           'api_key' => Configuration::get('COINGATE_API_KEY'),
           'api_secret' => Configuration::get('COINGATE_API_SECRET'),
-          'user_agent' => 'CoinGate - Prestashop Extension v' . COINGATE_PRESTASHOP_EXTENSION_VERSION
           'environment' => intval(Configuration::getValue('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
+          'user_agent' => 'CoinGate - Prestashop v'._PS_VERSION_.' Extension v'.COINGATE_PRESTASHOP_EXTENSION_VERSION
         );
 
         \CoinGate\CoinGate::config($cgConfig);
