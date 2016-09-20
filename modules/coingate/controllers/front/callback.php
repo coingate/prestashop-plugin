@@ -52,7 +52,8 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
               'api_key' => Configuration::get('COINGATE_API_KEY'),
               'api_secret' => Configuration::get('COINGATE_API_SECRET'),
               'environment' => (int)(Configuration::get('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
-              'user_agent' => 'CoinGate - Prestashop v'._PS_VERSION_.' Extension v'.COINGATE_PRESTASHOP_EXTENSION_VERSION
+              'user_agent' => 'CoinGate - Prestashop v'._PS_VERSION_
+                .' Extension v'.COINGATE_PRESTASHOP_EXTENSION_VERSION
             );
 
             \CoinGate\CoinGate::config($cgConfig);

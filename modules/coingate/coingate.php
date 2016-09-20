@@ -230,7 +230,8 @@ class Coingate extends PaymentModule
                     'api_key' => $this->stripString(Tools::getValue('COINGATE_API_KEY')),
                     'api_secret' => $this->stripString(Tools::getValue('COINGATE_API_SECRET')),
                     'environment' => (int)(Tools::getValue('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
-                    'user_agent' => 'CoinGate - Prestashop v'._PS_VERSION_.' Extension v'.COINGATE_PRESTASHOP_EXTENSION_VERSION
+                    'user_agent' => 'CoinGate - Prestashop v'._PS_VERSION_
+                        .' Extension v'.COINGATE_PRESTASHOP_EXTENSION_VERSION
                 );
 
                 \CoinGate\CoinGate::config($cgConfig);
@@ -250,7 +251,8 @@ class Coingate extends PaymentModule
         if (Tools::isSubmit('btnSubmit')) {
             Configuration::updateValue('COINGATE_APP_ID', $this->stripString(Tools::getValue('COINGATE_APP_ID')));
             Configuration::updateValue('COINGATE_API_KEY', $this->stripString(Tools::getValue('COINGATE_API_KEY')));
-            Configuration::updateValue('COINGATE_API_SECRET', $this->stripString(Tools::getValue('COINGATE_API_SECRET')));
+            Configuration::updateValue('COINGATE_API_SECRET',
+                $this->stripString(Tools::getValue('COINGATE_API_SECRET')));
             Configuration::updateValue('COINGATE_RECEIVE_CURRENCY', Tools::getValue('COINGATE_RECEIVE_CURRENCY'));
             Configuration::updateValue('COINGATE_TEST', Tools::getValue('COINGATE_TEST'));
         }
