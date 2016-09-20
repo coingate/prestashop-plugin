@@ -251,8 +251,9 @@ class Coingate extends PaymentModule
         if (Tools::isSubmit('btnSubmit')) {
             Configuration::updateValue('COINGATE_APP_ID', $this->stripString(Tools::getValue('COINGATE_APP_ID')));
             Configuration::updateValue('COINGATE_API_KEY', $this->stripString(Tools::getValue('COINGATE_API_KEY')));
-            Configuration::updateValue('COINGATE_API_SECRET',
-                $this->stripString(Tools::getValue('COINGATE_API_SECRET')));
+            Configuration::updateValue(
+                'COINGATE_API_SECRET', $this->stripString(Tools::getValue('COINGATE_API_SECRET'))
+            );
             Configuration::updateValue('COINGATE_RECEIVE_CURRENCY', Tools::getValue('COINGATE_RECEIVE_CURRENCY'));
             Configuration::updateValue('COINGATE_TEST', Tools::getValue('COINGATE_TEST'));
         }
