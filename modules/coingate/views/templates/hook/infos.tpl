@@ -23,6 +23,7 @@
 *}
 <div class="alert alert-info">
     <p>
-        <strong>Having trouble?</strong> We can help you! Download the log file from {$smarty.const._PS_ROOT_DIR_|escape:'htmlall':'UTF-8'}/log/coingate.log and send it to <a href="mailto:support@coingate.com">support@coingate.com</a>
+        <strong>Having trouble?</strong> We can help you! Download the log file from {$smarty.const._PS_ROOT_DIR_|escape:'htmlall':'UTF-8'}/log/coingate.log and send it to <a href="mailto:support@coingate.com">support@coingate.com</a>.
+        <a href="https://developer.coingate.com/docs/issues" target="_blank">View common issues</a>. 
     </p>
 </div>
