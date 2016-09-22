@@ -96,6 +96,10 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 $history->addWithemail(true, array(
                     'order_name' => Tools::getValue('order_id'),
                 ));
+
+                die('OK');
+            } else {
+                die('Status'.$cgOrder->status.' not implemented');
             }
         } catch (Exception $e) {
             echo get_class($e) . ': ' . $e->getMessage();
