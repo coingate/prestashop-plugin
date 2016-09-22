@@ -69,9 +69,6 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 case 'paid':
                     $order_status = 'PS_OS_PAYMENT';
                     break;
-                case 'confirming':
-                    $order_status = 'COINGATE_CONFIRMING';
-                    break;
                 case 'expired':
                     $order_status = 'COINGATE_EXPIRED';
                     break;
@@ -97,13 +94,23 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                     'order_name' => Tools::getValue('order_id'),
                 ));
 
-                die('OK');
+                $this->context->smarty->assign(array(
+                    'text' => 'OK'
+                ));
             } else {
-                die('Status'.$cgOrder->status.' not implemented');
+                $this->context->smarty->assign(array(
+                    'text' => 'Order Status '.$cgOrder->status.' not implemented'
+                ));
             }
         } catch (Exception $e) {
-            echo get_class($e) . ': ' . $e->getMessage();
+            $this->context->smarty->assign(array(
+                'text' => get_class($e) . ': ' . $e->getMessage()
+            ));
         }
+
+        $this->setTemplate('payment_callback.tpl');
+
+        die('OK');
     }
 
     private function generateToken($order_id)

@@ -179,7 +179,8 @@ class Coingate extends PaymentModule
         if (!parent::install()
             || !$this->registerHook('payment')
             || !$this->registerHook('displayPaymentEU')
-            || !$this->registerHook('paymentReturn')) {
+            || !$this->registerHook('paymentReturn')
+            || !$this->registerHook('paymentOptions')) {
             return false;
         }
 
@@ -305,6 +306,28 @@ class Coingate extends PaymentModule
         ));
 
         return $this->display(__FILE__, 'payment.tpl');
+    }
+
+    public function hookPaymentOptions($params)
+    {
+        if (!$this->active) {
+            return;
+        }
+
+        if (!$this->checkCurrency($params['cart'])) {
+            return;
+        }
+
+        $newOption = new PaymentOption();
+        $newOption->setCallToActionText('Pay with Bitcoin via CoinGate.com')
+                      ->setAction($this->context->link->getModuleLink($this->name, 'redirect', array(), true))
+                      ->setAdditionalInformation($this->context->smarty->fetch('module:coingate/views/templates/hook/coingate_intro.tpl'));
+
+        $payment_options = [
+            $newOption,
+        ];
+
+        return $payment_options;
     }
 
     public function checkCurrency($cart)
