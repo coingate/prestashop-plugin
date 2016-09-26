@@ -2,7 +2,7 @@
 <module>
     <name>coingate</name>
     <displayName><![CDATA[Bitcoin via CoinGate]]></displayName>
-    <version><![CDATA[1.2.1]]></version>
+    <version><![CDATA[1.2.2]]></version>
     <description><![CDATA[Accept Bitcoin via CoinGate]]></description>
     <author><![CDATA[CoinGate.com]]></author>
     <tab><![CDATA[payments_gateways]]></tab>
