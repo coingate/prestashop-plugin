@@ -25,7 +25,6 @@
 
 require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate/init.php');
 require_once(_PS_MODULE_DIR_ . '/coingate/vendor/version.php');
-require_once(_PS_MODULE_DIR_ . '/coingate/vendor/logger.php');
 
 class CoingateRedirectModuleFrontController extends ModuleFrontController
 {
@@ -105,7 +104,6 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
 
             Tools::redirect($order->payment_url);
         } else {
-            coingate_log('[Request]', $cgConfig, $order);
             Tools::redirect('index.php?controller=order&step=3');
         }
     }

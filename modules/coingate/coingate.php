@@ -29,7 +29,6 @@ if (!defined('_PS_VERSION_')) {
 
 require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate/init.php');
 require_once(_PS_MODULE_DIR_ . '/coingate/vendor/version.php');
-require_once(_PS_MODULE_DIR_ . '/coingate/vendor/logger.php');
 
 class Coingate extends PaymentModule
 {
@@ -241,7 +240,6 @@ class Coingate extends PaymentModule
 
                 if ($test !== true) {
                     $this->postErrors[] = $this->l($test);
-                    coingate_log('[Admin]', $cgConfig, $test);
                 }
             }
         }

@@ -25,7 +25,6 @@
 
 require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate/init.php');
 require_once(_PS_MODULE_DIR_ . '/coingate/vendor/version.php');
-require_once(_PS_MODULE_DIR_ . '/coingate/vendor/logger.php');
 
 class CoingateCallbackModuleFrontController extends ModuleFrontController
 {
@@ -60,8 +59,6 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
             $cgOrder = \CoinGate\Merchant\Order::find(Tools::getValue('id'));
 
             if (!$cgOrder) {
-                coingate_log('[Callback]', $cgConfig, $cgOrder);
-
                 throw new Exception('CoinGate Order #' . Tools::getValue('id') . ' does not exists');
             }
 
