@@ -378,7 +378,7 @@ class Coingate extends PaymentModule
                         'type'     => 'select',
                         'label'    => $this->l('Receive Currency'),
                         'name'     => 'COINGATE_RECEIVE_CURRENCY',
-                        'desc'     => $this->l('Currency you want to receive at CoinGate.com'),
+                        'desc'     => $this->l('Currency you want to receive at CoinGate.com.<br>Please take a note what if you choose EUR or USD you will be asked to verify your business before making a withdrawal at CoinGate.'),
                         'required' => true,
                         'options'  => array(
                             'query' => array(
@@ -403,7 +403,7 @@ class Coingate extends PaymentModule
                         'type'     => 'select',
                         'label'    => $this->l('Test Mode'),
                         'name'     => 'COINGATE_TEST',
-                        'desc'     => $this->l('Use Sandbox instead of production one.'),
+                        'desc'     => $this->l('Enable "test mode" to test on sandbox.coingate.com'),
                         'required' => true,
                         'options'  => array(
                             'query' => array(
