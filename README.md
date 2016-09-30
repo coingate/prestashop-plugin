@@ -18,4 +18,4 @@ Sign up for CoinGate account at https://coingate.com for production and https://
 
 5. Find **Bitcoin via CoinGate** and click **Install** button to next to it, then click **Proceed with the installation**.
 
-6. Enter your API credentials (*App ID*, *API Key*, *API Secret*) and click **Save**.
+6. Enter your [API credentials](http://support.coingate.com/knowledge_base/topics/how-can-i-create-coingate-api-credentials) (*App ID*, *API Key*, *API Secret*) and click **Save**.
