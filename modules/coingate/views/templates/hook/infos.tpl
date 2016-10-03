@@ -3,7 +3,7 @@
 *
 * The MIT License (MIT)
 *
-* Copyright (c) 2016 CoinGate
+* Copyright (c) 2015-2016 CoinGate
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy of
 * this software and associated documentation files (the "Software"), to deal in
@@ -23,7 +23,7 @@
 * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *
 *  @author CoinGate <info@coingate.com>
-*  @copyright  2016 CoinGate
+*  @copyright  2015-2016 CoinGate
 *  @license    https://github.com/coingate/prestashop-plugin/blob/master/LICENSE.md  The MIT License (MIT)
 *}
 <div class="alert alert-info">
