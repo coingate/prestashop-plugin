@@ -22,9 +22,9 @@
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *
-*  @author CoinGate <info@coingate.com>
-*  @copyright  2015-2016 CoinGate
-*  @license    https://github.com/coingate/prestashop-plugin/blob/master/LICENSE.md  The MIT License (MIT)
+*  @author    CoinGate <info@coingate.com>
+*  @copyright 2015-2016 CoinGate
+*  @license   https://github.com/coingate/prestashop-plugin/blob/master/LICENSE  The MIT License (MIT)
 *}
 
 <section>
