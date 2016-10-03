@@ -313,26 +313,24 @@ class Coingate extends PaymentModule
 
     public function hookPaymentOptions($params)
     {
-        if (class_exists('PrestaShop\PrestaShop\Core\Payment\PaymentOption')) {
-            if (!$this->active) {
-                return;
-            }
-
-            if (!$this->checkCurrency($params['cart'])) {
-                return;
-            }
-
-            $newOption = new PrestaShop\PrestaShop\Core\Payment\PaymentOption();
-            $newOption->setCallToActionText('Pay with Bitcoin via CoinGate.com')
-                          ->setAction($this->context->link->getModuleLink($this->name, 'redirect', array(), true))
-                          ->setAdditionalInformation($this->context->smarty->fetch('module:coingate/views/templates/hook/coingate_intro.tpl'));
-
-            $payment_options = [
-                $newOption,
-            ];
-
-            return $payment_options;
+        if (!$this->active) {
+            return;
         }
+
+        if (!$this->checkCurrency($params['cart'])) {
+            return;
+        }
+
+        $newOption = new PrestaShop\PrestaShop\Core\Payment\PaymentOption();
+        $newOption->setCallToActionText('Pay with Bitcoin via CoinGate.com')
+                      ->setAction($this->context->link->getModuleLink($this->name, 'redirect', array(), true))
+                      ->setAdditionalInformation($this->context->smarty->fetch('module:coingate/views/templates/hook/coingate_intro.tpl'));
+
+        $payment_options = [
+            $newOption,
+        ];
+
+        return $payment_options;
     }
 
     public function checkCurrency($cart)
