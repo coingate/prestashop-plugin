@@ -54,8 +54,7 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
         $success_url = (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
         . htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8')
         . __PS_BASE_URI__ . 'index.php?controller=order-confirmation&id_cart='
-        . $cart->id . '&id_module=' . $this->id . '&id_order='
-        . $this->currentOrder . '&key=' . $customer->secure_key;
+        . $cart->id . '&key=' . $customer->secure_key;
 
 
         $cgConfig = array(
