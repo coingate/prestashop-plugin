@@ -67,25 +67,29 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 throw new Exception('CoinGate Order #' . Tools::getValue('id') . ' does not exists');
             }
 
-            switch ($cgOrder->status) {
-                case 'paid':
-                    $order_status = 'PS_OS_PAYMENT';
-                    break;
-                case 'expired':
-                    $order_status = 'COINGATE_EXPIRED';
-                    break;
-                case 'invalid':
-                    $order_status = 'COINGATE_INVALID';
-                    break;
-                case 'canceled':
-                    $order_status = 'PS_OS_CANCELED';
-                    break;
-                case 'refunded':
-                    $order_status = 'PS_OS_REFUND';
-                    break;
-                default:
-                    $order_status = false;
-                    break;
+            if (((float) $order->getOrdersTotalPaid()) > ((float) $cgOrder->price)) {
+                $order_status = 'COINGATE_INVALID';
+            } else {
+                switch ($cgOrder->status) {
+                    case 'paid':
+                        $order_status = 'PS_OS_PAYMENT';
+                        break;
+                    case 'expired':
+                        $order_status = 'COINGATE_EXPIRED';
+                        break;
+                    case 'invalid':
+                        $order_status = 'COINGATE_INVALID';
+                        break;
+                    case 'canceled':
+                        $order_status = 'PS_OS_CANCELED';
+                        break;
+                    case 'refunded':
+                        $order_status = 'PS_OS_REFUND';
+                        break;
+                    default:
+                        $order_status = false;
+                        break;
+                }
             }
 
             if ($order_status !== false) {

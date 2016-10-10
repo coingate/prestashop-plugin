@@ -139,7 +139,7 @@ class Coingate extends PaymentModule
         $order_confirming->logable = 0;
 
         $order_invalid = new OrderState();
-        $order_invalid->name = array_fill(0, 10, 'CoinGate payment rejected by Bitcoin network');
+        $order_invalid->name = array_fill(0, 10, 'CoinGate invoice is invalid');
         $order_invalid->send_email = 0;
         $order_invalid->invoice = 0;
         $order_invalid->color = '#8f0621';
