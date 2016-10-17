@@ -112,10 +112,11 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 'text' => get_class($e) . ': ' . $e->getMessage()
             ));
         }
-
-        $this->setTemplate('payment_callback.tpl');
-
-        die('OK');
+        if (_PS_VERSION_ >= '1.7') {
+            $this->setTemplate('module:coingate/views/templates/front/payment_callback.tpl');
+        } else {
+            $this->setTemplate('payment_callback.tpl');
+        }
     }
 
     private function generateToken($order_id)
