@@ -67,6 +67,8 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 throw new Exception('CoinGate Order #' . Tools::getValue('id') . ' does not exists');
             }
 
+            $order_status = false;
+
             if (((float) $order->getOrdersTotalPaid()) > ((float) $cgOrder->price)) {
                 $order_status = 'COINGATE_INVALID';
             } else {
@@ -85,9 +87,6 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                         break;
                     case 'refunded':
                         $order_status = 'PS_OS_REFUND';
-                        break;
-                    default:
-                        $order_status = false;
                         break;
                 }
             }
