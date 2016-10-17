@@ -388,17 +388,17 @@ class Coingate extends PaymentModule
                         'options'  => array(
                             'query' => array(
                                 array(
+                                    'id_option' => 'btc',
+                                    'name'      => 'Bitcoin (฿)'
+                                ),
+                                array(
                                     'id_option' => 'eur',
                                     'name'      => 'Euros (€)'
                                 ),
                                 array(
                                     'id_option' => 'usd',
                                     'name'      => 'US Dollars ($)'
-                                ),
-                                array(
-                                    'id_option' => 'btc',
-                                    'name'      => 'Bitcoin (฿)'
-                                ),
+                                )
                             ),
                             'id'    => 'id_option',
                             'name'  => 'name'
