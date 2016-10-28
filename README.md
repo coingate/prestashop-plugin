@@ -8,7 +8,7 @@ Sign up for CoinGate account at https://coingate.com for production and https://
 
 ### via PrestaShop FTP Uploader
 
-1. Download [CoinGate_Prestashop-1.2.1.zip](https://github.com/coingate/prestashop-plugin/releases/download/v1.2.1/CoinGate_Prestashop-1.2.1.zip).
+1. Download [CoinGate_Prestashop-1.2.2.zip](https://github.com/coingate/prestashop-plugin/releases/download/v1.2.2/CoinGate_Prestashop-1.2.2.zip).
 
 2. Go to your PrestaShop admin panel » **Modules and Services**.
 
