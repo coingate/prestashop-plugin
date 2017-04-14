@@ -10,7 +10,7 @@ Please note, that for "Test" mode you **must** generate separate API credentials
 
 ### via PrestaShop FTP Uploader
 
-1. Download [CoinGate_Prestashop-1.2.2.zip](https://github.com/coingate/prestashop-plugin/releases/download/v1.2.2/CoinGate_Prestashop-1.2.2.zip).
+1. Download [CoinGate_Prestashop-1.2.3.zip](https://github.com/coingate/prestashop-plugin/releases/download/v1.2.3/CoinGate_Prestashop-1.2.3.zip).
 
 2. Go to your PrestaShop admin panel » **Modules and Services**.
 
