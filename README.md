@@ -1,6 +1,10 @@
 # PrestaShop CoinGate Plugin
 
-CoinGate bitcoin payment gateway PrestaShop plugin.
+Accept Bitcoin & Altcoins on your PrestaShop store.
+
+Read the module installation instructions below to get started with CoinGate Bitcoin & Altcoin payment gateway on your shop.
+Full setup guide with screenshots is also available on our blog: <https://blog.coingate.com/2017/04/install-prestashop-bitcoin/>
+
 
 ## Install
 
