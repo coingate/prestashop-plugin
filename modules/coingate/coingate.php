@@ -322,7 +322,7 @@ class Coingate extends PaymentModule
         }
 
         $newOption = new PrestaShop\PrestaShop\Core\Payment\PaymentOption();
-        $newOption->setCallToActionText('Pay with Bitcoin via CoinGate.com')
+        $newOption->setCallToActionText('Pay with Bitcoin or Altcoins via CoinGate.com')
                       ->setAction($this->context->link->getModuleLink($this->name, 'redirect', array(), true))
                       ->setAdditionalInformation($this->context->smarty->fetch('module:coingate/views/templates/hook/coingate_intro.tpl'));
 

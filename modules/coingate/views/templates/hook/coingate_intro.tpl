@@ -35,7 +35,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h2>Pay with Bitcoin via CoinGate.com</h2>
+          <h2>Pay with Bitcoin or Altcoins via CoinGate.com</h2>
         </div>
         <div class="modal-body">
         </div>
