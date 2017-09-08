@@ -37,18 +37,26 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
 
     public function postProcess()
     {
-        $order_id = Order::getOrderByCartId(Tools::getValue('order_id'));
+        $cart_id = (int)Tools::getValue('order_id');
+        $order_id = Order::getOrderByCartId($cart_id);
         $order = new Order($order_id);
 
         try {
             if (!$order) {
-                throw new Exception('Order #' . Tools::getValue('order_id') . ' does not exists');
+                $error_message = 'CoinGate Order #' . Tools::getValue('order_id') . ' does not exists';
+
+                $this->logError($error_message, $cart_id);
+                throw new Exception($error_message);
             }
 
             $token = $this->generateToken(Tools::getValue('order_id'));
+            $cg_token = Tools::getValue('cg_token');
 
-            if ($token == '' || Tools::getValue('cg_token') != $token) {
-                throw new Exception('Token: ' . Tools::getValue('cg_token') . ' do not match');
+            if (empty($cg_token) || strcmp($cg_token, $token) !== 0) {
+                $error_message = 'CoinGate Token: ' . Tools::getValue('cg_token') . ' is not valid';
+
+                $this->logError($error_message, $cart_id);
+                throw new Exception($error_message);
             }
 
             $cgConfig = array(
@@ -64,7 +72,10 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
             $cgOrder = \CoinGate\Merchant\Order::find(Tools::getValue('id'));
 
             if (!$cgOrder) {
-                throw new Exception('CoinGate Order #' . Tools::getValue('id') . ' does not exists');
+                $error_message = 'CoinGate Order #' . Tools::getValue('id') . ' does not exists';
+
+                $this->logError($error_message, $cart_id);
+                throw new Exception($error_message);
             }
 
             $order_status = false;
@@ -122,5 +133,9 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
     private function generateToken($order_id)
     {
         return hash('sha256', $order_id + $this->module->api_secret);
+    }
+
+    private function logError($message, $cart_id) {
+      PrestaShopLogger::addLog($message, 3, null, 'Cart', $cart_id, true);
     }
 }
