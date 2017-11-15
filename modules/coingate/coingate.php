@@ -1,39 +1,39 @@
 <?php
 /**
-* NOTICE OF LICENSE
-*
-* The MIT License (MIT)
-*
-* Copyright (c) 2015-2016 CoinGate
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to use,
-* copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
-* and to permit persons to whom the Software is furnished to do so, subject
-* to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
-* IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*
-*  @author    CoinGate <info@coingate.com>
-*  @copyright 2015-2016 CoinGate
-*  @license   https://github.com/coingate/prestashop-plugin/blob/master/LICENSE  The MIT License (MIT)
-*/
+ * NOTICE OF LICENSE
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015-2016 CoinGate
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+ * and to permit persons to whom the Software is furnished to do so, subject
+ * to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+ * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  @author    CoinGate <info@coingate.com>
+ *  @copyright 2015-2016 CoinGate
+ *  @license   https://github.com/coingate/prestashop-plugin/blob/master/LICENSE  The MIT License (MIT)
+ */
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate/init.php');
-require_once(_PS_MODULE_DIR_ . '/coingate/vendor/version.php');
+require_once _PS_MODULE_DIR_ . '/coingate/vendor/coingate/init.php';
+require_once _PS_MODULE_DIR_ . '/coingate/vendor/version.php';
 
 class Coingate extends PaymentModule
 {
@@ -68,7 +68,7 @@ class Coingate extends PaymentModule
                 'COINGATE_API_KEY',
                 'COINGATE_API_SECRET',
                 'COINGATE_RECEIVE_CURRENCY',
-                'COINGATE_TEST'
+                'COINGATE_TEST',
             )
         );
 
@@ -149,28 +149,28 @@ class Coingate extends PaymentModule
         if ($order_pending->add()) {
             copy(
                 _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_pending->id . '.png'
+                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_pending->id . '.png'
             );
         }
 
         if ($order_expired->add()) {
             copy(
                 _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_expired->id . '.png'
+                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_expired->id . '.png'
             );
         }
 
         if ($order_confirming->add()) {
             copy(
                 _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_confirming->id . '.png'
+                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_confirming->id . '.png'
             );
         }
 
         if ($order_invalid->add()) {
             copy(
                 _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int)$order_invalid->id . '.png'
+                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_invalid->id . '.png'
             );
         }
 
@@ -178,7 +178,6 @@ class Coingate extends PaymentModule
         Configuration::updateValue('COINGATE_EXPIRED', $order_expired->id);
         Configuration::updateValue('COINGATE_CONFIRMING', $order_confirming->id);
         Configuration::updateValue('COINGATE_INVALID', $order_invalid->id);
-
 
         if (!parent::install()
             || !$this->registerHook('payment')
@@ -231,12 +230,12 @@ class Coingate extends PaymentModule
 
             if (empty($this->postErrors)) {
                 $cgConfig = array(
-                    'app_id' => $this->stripString(Tools::getValue('COINGATE_APP_ID')),
-                    'api_key' => $this->stripString(Tools::getValue('COINGATE_API_KEY')),
-                    'api_secret' => $this->stripString(Tools::getValue('COINGATE_API_SECRET')),
-                    'environment' => (int)(Tools::getValue('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
-                    'user_agent' => 'CoinGate - Prestashop v'._PS_VERSION_
-                        .' Extension v'.COINGATE_PRESTASHOP_EXTENSION_VERSION
+                    'app_id'      => $this->stripString(Tools::getValue('COINGATE_APP_ID')),
+                    'api_key'     => $this->stripString(Tools::getValue('COINGATE_API_KEY')),
+                    'api_secret'  => $this->stripString(Tools::getValue('COINGATE_API_SECRET')),
+                    'environment' => (int) (Tools::getValue('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
+                    'user_agent'  => 'CoinGate - Prestashop v' . _PS_VERSION_
+                    . ' Extension v' . COINGATE_PRESTASHOP_EXTENSION_VERSION,
                 );
 
                 \CoinGate\CoinGate::config($cgConfig);
@@ -305,7 +304,7 @@ class Coingate extends PaymentModule
         $this->smarty->assign(array(
             'this_path'     => $this->_path,
             'this_path_bw'  => $this->_path,
-            'this_path_ssl' => Tools::getShopDomainSsl(true, true) . __PS_BASE_URI__ . 'modules/' . $this->name . '/'
+            'this_path_ssl' => Tools::getShopDomainSsl(true, true) . __PS_BASE_URI__ . 'modules/' . $this->name . '/',
         ));
 
         return $this->display(__FILE__, 'payment.tpl');
@@ -323,10 +322,10 @@ class Coingate extends PaymentModule
 
         $newOption = new PrestaShop\PrestaShop\Core\Payment\PaymentOption();
         $newOption->setCallToActionText('Pay with Bitcoin or Altcoins via CoinGate.com')
-                      ->setAction($this->context->link->getModuleLink($this->name, 'redirect', array(), true))
-                      ->setAdditionalInformation(
-                            $this->context->smarty->fetch('module:coingate/views/templates/hook/coingate_intro.tpl')
-                        );
+            ->setAction($this->context->link->getModuleLink($this->name, 'redirect', array(), true))
+            ->setAdditionalInformation(
+                $this->context->smarty->fetch('module:coingate/views/templates/hook/coingate_intro.tpl')
+            );
 
         $payment_options = [
             $newOption,
@@ -357,7 +356,7 @@ class Coingate extends PaymentModule
             'form' => array(
                 'legend' => array(
                     'title' => $this->l('Bitcoin payment via CoinGate'),
-                    'icon'  => 'icon-bitcoin'
+                    'icon'  => 'icon-bitcoin',
                 ),
                 'input'  => array(
                     array(
@@ -365,21 +364,21 @@ class Coingate extends PaymentModule
                         'label'    => $this->l('APP ID'),
                         'name'     => 'COINGATE_APP_ID',
                         'desc'     => $this->l('Your application ID.'),
-                        'required' => true
+                        'required' => true,
                     ),
                     array(
                         'type'     => 'text',
                         'label'    => $this->l('API Key'),
                         'name'     => 'COINGATE_API_KEY',
                         'desc'     => $this->l('Your application API access key.'),
-                        'required' => true
+                        'required' => true,
                     ),
                     array(
                         'type'     => 'text',
                         'label'    => $this->l('API Secret'),
                         'name'     => 'COINGATE_API_SECRET',
                         'desc'     => $this->l('Your application API access secret key.'),
-                        'required' => true
+                        'required' => true,
                     ),
                     array(
                         'type'     => 'select',
@@ -387,80 +386,80 @@ class Coingate extends PaymentModule
                         'name'     => 'COINGATE_RECEIVE_CURRENCY',
                         'desc'     => $this->l('
                                                 Currency you want to receive at CoinGate.com.
-                                                Please take a note what if you choose EUR or USD you will be asked to 
+                                                Please take a note what if you choose EUR or USD you will be asked to
                                                 verify your business before making a withdrawal at CoinGate.'
-                                              ),
+                        ),
                         'required' => true,
                         'options'  => array(
                             'query' => array(
                                 array(
                                     'id_option' => 'btc',
-                                    'name'      => 'Bitcoin (฿)'
+                                    'name'      => 'Bitcoin (฿)',
                                 ),
                                 array(
                                     'id_option' => 'eur',
-                                    'name'      => 'Euros (€)'
+                                    'name'      => 'Euros (€)',
                                 ),
                                 array(
                                     'id_option' => 'usd',
-                                    'name'      => 'US Dollars ($)'
-                                )
+                                    'name'      => 'US Dollars ($)',
+                                ),
                             ),
                             'id'    => 'id_option',
-                            'name'  => 'name'
-                        )
+                            'name'  => 'name',
+                        ),
                     ),
                     array(
                         'type'     => 'select',
                         'label'    => $this->l('Test Mode'),
                         'name'     => 'COINGATE_TEST',
                         'desc'     => $this->l('
-                                                Enable "Test mode" to test on sandbox.coingate.com. Please note, that for "Test mode" mode 
-                                                you must generate separate API credentials on sandbox.coingate.com. API credentials generated 
+                                                Enable "Test mode" to test on sandbox.coingate.com. Please note, that for "Test mode" mode
+                                                you must generate separate API credentials on sandbox.coingate.com. API credentials generated
                                                 on coingate.com will not work for "Test mode".'
-                                              ),
+                        ),
                         'required' => true,
                         'options'  => array(
                             'query' => array(
                                 array(
                                     'id_option' => 0,
-                                    'name'      => 'Off'
+                                    'name'      => 'Off',
                                 ),
                                 array(
                                     'id_option' => 1,
-                                    'name'      => 'On'
+                                    'name'      => 'On',
                                 ),
                             ),
                             'id'    => 'id_option',
-                            'name'  => 'name'
-                        )
+                            'name'  => 'name',
+                        ),
                     ),
                 ),
                 'submit' => array(
                     'title' => $this->l('Save'),
-                )
+                ),
             ),
         );
 
         $helper = new HelperForm();
         $helper->show_toolbar = false;
         $helper->table = $this->table;
-        $lang = new Language((int)Configuration::get('PS_LANG_DEFAULT'));
+        $lang = new Language((int) Configuration::get('PS_LANG_DEFAULT'));
         $helper->default_form_language = $lang->id;
         $helper->allow_employee_form_lang = (Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG')
             ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0);
         $this->fields_form = array();
-        $helper->id = (int)Tools::getValue('id_carrier');
+        $helper->id = (int) Tools::getValue('id_carrier');
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'btnSubmit';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false)
-            . '&configure=' . $this->name . '&tab_module='
-            . $this->tab . '&module_name=' . $this->name;
+        . '&configure=' . $this->name . '&tab_module='
+        . $this->tab . '&module_name=' . $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->tpl_vars = array(
             'fields_value' => $this->getConfigFieldsValues(),
             'languages'    => $this->context->controller->getLanguages(),
-            'id_language'  => $this->context->language->id
+            'id_language'  => $this->context->language->id,
         );
 
         return $helper->generateForm(array($fields_form));
@@ -469,15 +468,15 @@ class Coingate extends PaymentModule
     public function getConfigFieldsValues()
     {
         return array(
-            'COINGATE_APP_ID' => $this->stripString(Tools::getValue(
+            'COINGATE_APP_ID'           => $this->stripString(Tools::getValue(
                 'COINGATE_APP_ID',
                 Configuration::get('COINGATE_APP_ID')
             )),
-            'COINGATE_API_KEY' => $this->stripString(Tools::getValue(
+            'COINGATE_API_KEY'          => $this->stripString(Tools::getValue(
                 'COINGATE_API_KEY',
                 Configuration::get('COINGATE_API_KEY')
             )),
-            'COINGATE_API_SECRET' => $this->stripString(Tools::getValue(
+            'COINGATE_API_SECRET'       => $this->stripString(Tools::getValue(
                 'COINGATE_API_SECRET',
                 Configuration::get('COINGATE_API_SECRET')
             )),
@@ -485,7 +484,7 @@ class Coingate extends PaymentModule
                 'COINGATE_RECEIVE_CURRENCY',
                 Configuration::get('COINGATE_RECEIVE_CURRENCY')
             ),
-            'COINGATE_TEST' => Tools::getValue(
+            'COINGATE_TEST'             => Tools::getValue(
                 'COINGATE_TEST',
                 Configuration::get('COINGATE_TEST')
             ),
