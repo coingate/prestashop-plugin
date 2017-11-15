@@ -137,6 +137,6 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
 
     private function logError($message, $cart_id)
     {
-      PrestaShopLogger::addLog($message, 3, null, 'Cart', $cart_id, true);
+        PrestaShopLogger::addLog($message, 3, null, 'Cart', $cart_id, true);
     }
 }
