@@ -135,7 +135,8 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
         return hash('sha256', $order_id + $this->module->api_secret);
     }
 
-    private function logError($message, $cart_id) {
+    private function logError($message, $cart_id)
+    {
       PrestaShopLogger::addLog($message, 3, null, 'Cart', $cart_id, true);
     }
 }
