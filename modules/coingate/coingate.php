@@ -324,7 +324,9 @@ class Coingate extends PaymentModule
         $newOption = new PrestaShop\PrestaShop\Core\Payment\PaymentOption();
         $newOption->setCallToActionText('Pay with Bitcoin or Altcoins via CoinGate.com')
                       ->setAction($this->context->link->getModuleLink($this->name, 'redirect', array(), true))
-                      ->setAdditionalInformation($this->context->smarty->fetch('module:coingate/views/templates/hook/coingate_intro.tpl'));
+                      ->setAdditionalInformation(
+                            $this->context->smarty->fetch('module:coingate/views/templates/hook/coingate_intro.tpl')
+                        );
 
         $payment_options = [
             $newOption,
@@ -383,7 +385,11 @@ class Coingate extends PaymentModule
                         'type'     => 'select',
                         'label'    => $this->l('Receive Currency'),
                         'name'     => 'COINGATE_RECEIVE_CURRENCY',
-                        'desc'     => $this->l('Currency you want to receive at CoinGate.com. Please take a note what if you choose EUR or USD you will be asked to verify your business before making a withdrawal at CoinGate.'),
+                        'desc'     => $this->l('
+                                                Currency you want to receive at CoinGate.com.
+                                                Please take a note what if you choose EUR or USD you will be asked to 
+                                                verify your business before making a withdrawal at CoinGate.'
+                                              ),
                         'required' => true,
                         'options'  => array(
                             'query' => array(
@@ -408,7 +414,11 @@ class Coingate extends PaymentModule
                         'type'     => 'select',
                         'label'    => $this->l('Test Mode'),
                         'name'     => 'COINGATE_TEST',
-                        'desc'     => $this->l('Enable "Test mode" to test on sandbox.coingate.com. Please note, that for "Test mode" mode you must generate separate API credentials on sandbox.coingate.com. API credentials generated on coingate.com will not work for "Test mode".'),
+                        'desc'     => $this->l('
+                                                Enable "Test mode" to test on sandbox.coingate.com. Please note, that for "Test mode" mode 
+                                                you must generate separate API credentials on sandbox.coingate.com. API credentials generated 
+                                                on coingate.com will not work for "Test mode".'
+                                              ),
                         'required' => true,
                         'options'  => array(
                             'query' => array(
