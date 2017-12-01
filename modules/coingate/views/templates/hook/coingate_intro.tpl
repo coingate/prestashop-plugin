@@ -41,7 +41,6 @@
           <h2>Bitcoin, Ethereum, Litecoin or other (via CoinGate)</h2>
         </div>
         <div class="modal-body">
-          <h3>Sveiki visi</h3>
         </div>
       </div>
     </div>
