@@ -14,7 +14,7 @@ Please note, that for "Test" mode you **must** generate separate API credentials
 
 ### via PrestaShop FTP Uploader
 
-1. Download [CoinGate_Prestashop-1.2.4.zip](https://github.com/coingate/prestashop-plugin/releases/download/v1.2.4/CoinGate_Prestashop-1.2.4.zip).
+1. Download [CoinGate_Prestashop-1.2.5.zip](https://github.com/coingate/prestashop-plugin/releases/download/v1.2.5/CoinGate_Prestashop-1.2.5.zip).
 
 2. Go to your PrestaShop admin panel » **Modules and Services**.
 
@@ -24,4 +24,4 @@ Please note, that for "Test" mode you **must** generate separate API credentials
 
 5. Find **Bitcoin via CoinGate** and click **Install** button to next to it, then click **Proceed with the installation**.
 
-6. Enter your [API credentials](http://support.coingate.com/knowledge_base/topics/how-can-i-create-coingate-api-credentials) (*App ID*, *API Key*, *API Secret*) and click **Save**.
+6. Enter your [API credentials](https://support.coingate.com/en/42/how-can-i-create-coingate-api-credentials) (*App ID*, *API Key*, *API Secret*) and click **Save**.
