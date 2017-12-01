@@ -29,7 +29,7 @@
 
 <section>
   <p>
-    {l s='Cryptocurrency payments are processed by CoinGate.com - over 50 tokens supported.' d='coingate'}
+    {l s='Cryptocurrency payments are processed by CoinGate.com - over 50 tokens supported.' d='coingate' mod='coingate'}
   </p>
   <div class="modal fade" id="bankwire-modal" tabindex="-1" role="dialog" aria-labelledby="Bankwire information" aria-hidden="true">
     <div class="modal-dialog" role="document">
