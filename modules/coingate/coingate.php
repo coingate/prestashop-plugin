@@ -291,7 +291,7 @@ class Coingate extends PaymentModule
         return $this->html;
     }
 
-    public function hookDisplayOrderConfirmation($params)
+    public function hookPayment($params)
     {
         if (!$this->active) {
             return;
@@ -307,7 +307,7 @@ class Coingate extends PaymentModule
             'this_path_ssl' => Tools::getShopDomainSsl(true, true) . __PS_BASE_URI__ . 'modules/' . $this->name . '/',
         ));
 
-        return $this->context->smarty->fetch(__FILE__, 'payment.tpl');
+        return $this->display(__FILE__, 'payment.tpl');
     }
 
     public function hookPaymentOptions($params)
