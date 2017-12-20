@@ -293,9 +293,9 @@ class Coingate extends PaymentModule
 
     public function hookPayment($params)
     {
-    	if(_PS_VERSION_ >= 1.7) {
-    		return;
-    	}
+        if (_PS_VERSION_ >= 1.7) {
+            return;
+        }
 
         if (!$this->active) {
             return;
@@ -317,9 +317,9 @@ class Coingate extends PaymentModule
 
     public function hookDisplayOrderConfirmation($params)
     {
-    	if(_PS_VERSION_ <= 1.7) {
-    		return;
-    	}
+        if (_PS_VERSION_ <= 1.7) {
+            return;
+        }
 
         if (!$this->active) {
             return;
