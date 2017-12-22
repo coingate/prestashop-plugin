@@ -94,8 +94,8 @@ class Coingate extends PaymentModule
 
         parent::__construct();
 
-        $this->displayName = $this->l('Bitcoin via CoinGate');
-        $this->description = $this->l('Accept Bitcoin via CoinGate');
+        $this->displayName = $this->l('Bitcoin Payments via CoinGate');
+        $this->description = $this->l('Accept Bitcoin and other cryptocurrencies as a payment method with CoinGate');
         $this->confirmUninstall = $this->l('Are you sure you want to delete your details?');
 
         if (!isset($this->app_id)
