@@ -78,13 +78,18 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 throw new Exception($error_message);
             }
 
+            if ($order->id_cart != $cgOrder->order_id) {
+                $error_message = 'CG Order and PS cart does not match';
+
+                $this->logError($error_message, $cart_id);
+                throw new Exception($error_message);
+            }
+
 
             switch ($cgOrder->status) {
                 case 'paid':
                     if (((float) $order->getOrdersTotalPaid()) == ((float) $cgOrder->price)) {
-                        if($order->cart_id == $cgOrder->order_id) {
-                           $order_status = 'PS_OS_PAYMENT';
-                        }
+                        $order_status = 'PS_OS_PAYMENT';
                     } else {
                         $order_status = 'COINGATE_INVALID';
                     }
