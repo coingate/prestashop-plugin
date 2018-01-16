@@ -82,7 +82,9 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
             switch ($cgOrder->status) {
                 case 'paid':
                     if (((float) $order->getOrdersTotalPaid()) == ((float) $cgOrder->price)) {
-                        $order_status = 'PS_OS_PAYMENT';
+                        if($order->cart_id == $cgOrder->order_id) {
+                           $order_status = 'PS_OS_PAYMENT';
+                        }
                     } else {
                         $order_status = 'COINGATE_INVALID';
                     }
