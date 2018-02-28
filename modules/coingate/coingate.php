@@ -412,9 +412,9 @@ class Coingate extends PaymentModule
                         'name'     => 'COINGATE_RECEIVE_CURRENCY',
                         'desc'     => $this->l(
                             '
-                                                Currency you want to receive at CoinGate.com.
-                                                Please take a note what if you choose EUR or USD you will be asked to
-                                                verify your business before making a withdrawal at CoinGate.'
+                                                Choose the currency in which you would like to receive payouts. 
+                                                For real-time EUR or USD settlements, you must verify as 
+                                                a merchant on CoinGate.'
                         ),
                         'required' => true,
                         'options'  => array(
@@ -442,11 +442,9 @@ class Coingate extends PaymentModule
                         'name'     => 'COINGATE_TEST',
                         'desc'     => $this->l(
                             '
-                                                Enable "Test mode" to test on sandbox.coingate.com.
-                                                Please note, that for "Test mode" mode
-                                                you must generate separate API credentials on sandbox.coingate.com.
-                                                API credentials generated
-                                                on coingate.com will not work for "Test mode".'
+                                                To test on sandbox.coingate.com, turn Test Mode “On”. 
+                                                Please note, for Test Mode you must create a separate account on 
+                                                sandbox.coingate.com and generate API credentials there.'
                         ),
                         'required' => true,
                         'options'  => array(
@@ -470,6 +468,8 @@ class Coingate extends PaymentModule
                 ),
             ),
         );
+
+        $this->l('API Secret is required.');
 
         $helper = new HelperForm();
         $helper->show_toolbar = false;
