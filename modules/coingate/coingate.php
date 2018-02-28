@@ -469,8 +469,6 @@ class Coingate extends PaymentModule
             ),
         );
 
-        $this->l('API Secret is required.');
-
         $helper = new HelperForm();
         $helper->show_toolbar = false;
         $helper->table = $this->table;
