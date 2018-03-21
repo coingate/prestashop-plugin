@@ -54,7 +54,7 @@
 
             <p class="cheque-indent">
                 <strong class="dark">
-                    {l s='You have chosen to pay by Bitcoin via CoinGate.' mod='coingate'} {l s='Here is a short summary of your order:' mod='coingate'}
+                    {l s='You have chosen to pay with Cryptocurrency via CoinGate.' mod='coingate'} {l s='Here is a short summary of your order:' mod='coingate'}
                 </strong>
             </p>
 
@@ -67,7 +67,7 @@
             </p>
 
             <p>
-                - {l s='You will be redirected to CoinGate for payment with Bitcoin.' mod='coingate'}
+                - {l s='You will be redirected to CoinGate for payment with Cryptocurrency.' mod='coingate'}
                 <br/>
                 - {l s='Please confirm your order by clicking "I confirm my order".' mod='coingate'}
             </p>

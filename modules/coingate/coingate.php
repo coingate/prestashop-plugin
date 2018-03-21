@@ -94,7 +94,7 @@ class Coingate extends PaymentModule
 
         parent::__construct();
 
-        $this->displayName = $this->l('Bitcoin Payments via CoinGate');
+        $this->displayName = $this->l('Accept Cryptocurrencies with CoinGate');
         $this->description = $this->l('Accept Bitcoin and other cryptocurrencies as a payment method with CoinGate');
         $this->confirmUninstall = $this->l('Are you sure you want to delete your details?');
 
@@ -270,6 +270,15 @@ class Coingate extends PaymentModule
         return $this->display(__FILE__, 'infos.tpl');
     }
 
+    private function displayCoingateInformation($renderForm)
+    {
+        $this->html .= $this->displayCoingate();
+        $this->context->controller->addCSS($this->_path.'/views/css/tabs.css', 'all');
+        $this->context->controller->addJS($this->_path.'/views/js/javascript.js', 'all');
+        $this->context->smarty->assign('form', $renderForm);
+        return $this->display(__FILE__, 'information.tpl');
+    }
+
     public function getContent()
     {
         if (Tools::isSubmit('btnSubmit')) {
@@ -285,8 +294,8 @@ class Coingate extends PaymentModule
             $this->html .= '<br />';
         }
 
-        $this->html .= $this->displayCoingate();
-        $this->html .= $this->renderForm();
+        $renderForm = $this->renderForm();
+        $this->html .= $this->displayCoingateInformation($renderForm);
 
         return $this->html;
     }
@@ -381,7 +390,7 @@ class Coingate extends PaymentModule
         $fields_form = array(
             'form' => array(
                 'legend' => array(
-                    'title' => $this->l('Bitcoin payment via CoinGate'),
+                    'title' => $this->l('Accept Cryptocurrencies with CoinGate'),
                     'icon'  => 'icon-bitcoin',
                 ),
                 'input'  => array(
@@ -389,32 +398,32 @@ class Coingate extends PaymentModule
                         'type'     => 'text',
                         'label'    => $this->l('APP ID'),
                         'name'     => 'COINGATE_APP_ID',
-                        'desc'     => $this->l('Your application ID.'),
+                        'desc'     => $this->l('Your APP ID (created on CoinGate)'),
                         'required' => true,
                     ),
                     array(
                         'type'     => 'text',
                         'label'    => $this->l('API Key'),
                         'name'     => 'COINGATE_API_KEY',
-                        'desc'     => $this->l('Your application API access key.'),
+                        'desc'     => $this->l('Your API key.'),
                         'required' => true,
                     ),
                     array(
                         'type'     => 'text',
                         'label'    => $this->l('API Secret'),
                         'name'     => 'COINGATE_API_SECRET',
-                        'desc'     => $this->l('Your application API access secret key.'),
+                        'desc'     => $this->l('Your API Secret key.'),
                         'required' => true,
                     ),
                     array(
                         'type'     => 'select',
-                        'label'    => $this->l('Receive Currency'),
+                        'label'    => $this->l('Payout Currency'),
                         'name'     => 'COINGATE_RECEIVE_CURRENCY',
                         'desc'     => $this->l(
                             '
                                                 Choose the currency in which you would like to receive payouts. 
-                                                For real-time EUR or USD settlements, you must verify as 
-                                                a merchant on CoinGate.'
+                                                For real-time EUR or USD settlements, 
+                                                you must verify as a merchant on CoinGate.'
                         ),
                         'required' => true,
                         'options'  => array(
@@ -442,9 +451,9 @@ class Coingate extends PaymentModule
                         'name'     => 'COINGATE_TEST',
                         'desc'     => $this->l(
                             '
-                                                To test on sandbox.coingate.com, turn Test Mode “On”. 
-                                                Please note, for Test Mode you must create a separate account on 
-                                                sandbox.coingate.com and generate API credentials there.'
+                                                To test on sandbox.coingate.com, turn Test Mode “On”.
+                                                Please note, for Test Mode you must create a separate account
+                                                on sandbox.coingate.com and generate API credentials there.'
                         ),
                         'required' => true,
                         'options'  => array(
