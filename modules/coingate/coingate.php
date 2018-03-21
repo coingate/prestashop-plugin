@@ -50,7 +50,7 @@ class Coingate extends PaymentModule
     {
         $this->name = 'coingate';
         $this->tab = 'payments_gateways';
-        $this->version = '1.2.8';
+        $this->version = '1.2.9';
         $this->author = 'CoinGate.com';
         $this->is_eu_compatible = 1;
         $this->controllers = array('payment', 'redirect', 'callback', 'cancel');
@@ -421,8 +421,8 @@ class Coingate extends PaymentModule
                         'name'     => 'COINGATE_RECEIVE_CURRENCY',
                         'desc'     => $this->l(
                             '
-                                                Choose the currency in which you would like to receive payouts. 
-                                                For real-time EUR or USD settlements, 
+                                                Choose the currency in which you would like to receive payouts.
+                                                For real-time EUR or USD settlements,
                                                 you must verify as a merchant on CoinGate.'
                         ),
                         'required' => true,
