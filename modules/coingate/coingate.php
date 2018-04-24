@@ -40,9 +40,7 @@ class Coingate extends PaymentModule
     private $html = '';
     private $postErrors = array();
 
-    public $app_id;
-    public $api_key;
-    public $api_secret;
+    public $api_auth_token;
     public $receive_currency;
     public $test;
 
@@ -50,7 +48,7 @@ class Coingate extends PaymentModule
     {
         $this->name = 'coingate';
         $this->tab = 'payments_gateways';
-        $this->version = '1.2.9';
+        $this->version = '1.4.0-dev';
         $this->author = 'CoinGate.com';
         $this->is_eu_compatible = 1;
         $this->controllers = array('payment', 'redirect', 'callback', 'cancel');
@@ -64,24 +62,17 @@ class Coingate extends PaymentModule
 
         $config = Configuration::getMultiple(
             array(
-                'COINGATE_APP_ID',
-                'COINGATE_API_KEY',
-                'COINGATE_API_SECRET',
+                'COINGATE_API_AUTH_TOKEN',
                 'COINGATE_RECEIVE_CURRENCY',
                 'COINGATE_TEST',
             )
         );
 
-        if (!empty($config['COINGATE_APP_ID'])) {
-            $this->app_id = $config['COINGATE_APP_ID'];
+        if (!empty($config['COINGATE_API_AUTH_TOKEN'])) {
+            $this->api_auth_token = $config['COINGATE_API_AUTH_TOKEN'];
         }
-
-        if (!empty($config['COINGATE_API_KEY'])) {
-            $this->api_key = $config['COINGATE_API_KEY'];
-        }
-
-        if (!empty($config['COINGATE_API_SECRET'])) {
-            $this->api_secret = $config['COINGATE_API_SECRET'];
+        else if (!empty($config['COINGATE_API_SECRET'])) {
+            $this->api_auth_token = $config['COINGATE_API_SECRET'];
         }
 
         if (!empty($config['COINGATE_RECEIVE_CURRENCY'])) {
@@ -98,9 +89,7 @@ class Coingate extends PaymentModule
         $this->description = $this->l('Accept Bitcoin and other cryptocurrencies as a payment method with CoinGate');
         $this->confirmUninstall = $this->l('Are you sure you want to delete your details?');
 
-        if (!isset($this->app_id)
-            || !isset($this->api_key)
-            || !isset($this->api_secret)
+        if (!isset($this->api_auth_token)
             || !isset($this->receive_currency)) {
             $this->warning = $this->l('API Access details must be configured in order to use this module correctly.');
         }
@@ -200,6 +189,7 @@ class Coingate extends PaymentModule
             Configuration::deleteByName('COINGATE_APP_ID') &&
             Configuration::deleteByName('COINGATE_API_KEY') &&
             Configuration::deleteByName('COINGATE_API_SECRET') &&
+            Configuration::deleteByName('COINGATE_API_AUTH_TOKEN') &&
             Configuration::deleteByName('COINGATE_RECEIVE_CURRENCY') &&
             Configuration::deleteByName('COINGATE_TEST') &&
             $order_state_pending->delete() &&
@@ -212,16 +202,8 @@ class Coingate extends PaymentModule
     private function postValidation()
     {
         if (Tools::isSubmit('btnSubmit')) {
-            if (!Tools::getValue('COINGATE_APP_ID')) {
-                $this->postErrors[] = $this->l('APP ID is required.');
-            }
-
-            if (!Tools::getValue('COINGATE_API_KEY')) {
-                $this->postErrors[] = $this->l('API Key is required.');
-            }
-
-            if (!Tools::getValue('COINGATE_API_SECRET')) {
-                $this->postErrors[] = $this->l('API Secret is required.');
+            if (!Tools::getValue('COINGATE_API_AUTH_TOKEN')) {
+                $this->postErrors[] = $this->l('API Auth Token is required.');
             }
 
             if (!Tools::getValue('COINGATE_RECEIVE_CURRENCY')) {
@@ -230,9 +212,7 @@ class Coingate extends PaymentModule
 
             if (empty($this->postErrors)) {
                 $cgConfig = array(
-                    'app_id'      => $this->stripString(Tools::getValue('COINGATE_APP_ID')),
-                    'api_key'     => $this->stripString(Tools::getValue('COINGATE_API_KEY')),
-                    'api_secret'  => $this->stripString(Tools::getValue('COINGATE_API_SECRET')),
+                    'auth_token'  => $this->stripString(Tools::getValue('COINGATE_API_AUTH_TOKEN')),
                     'environment' => (int) (Tools::getValue('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
                     'user_agent'  => 'CoinGate - Prestashop v' . _PS_VERSION_
                     . ' Extension v' . COINGATE_PRESTASHOP_EXTENSION_VERSION,
@@ -252,11 +232,9 @@ class Coingate extends PaymentModule
     private function postProcess()
     {
         if (Tools::isSubmit('btnSubmit')) {
-            Configuration::updateValue('COINGATE_APP_ID', $this->stripString(Tools::getValue('COINGATE_APP_ID')));
-            Configuration::updateValue('COINGATE_API_KEY', $this->stripString(Tools::getValue('COINGATE_API_KEY')));
             Configuration::updateValue(
-                'COINGATE_API_SECRET',
-                $this->stripString(Tools::getValue('COINGATE_API_SECRET'))
+                'COINGATE_API_AUTH_TOKEN',
+                $this->stripString(Tools::getValue('COINGATE_API_AUTH_TOKEN'))
             );
             Configuration::updateValue('COINGATE_RECEIVE_CURRENCY', Tools::getValue('COINGATE_RECEIVE_CURRENCY'));
             Configuration::updateValue('COINGATE_TEST', Tools::getValue('COINGATE_TEST'));
@@ -396,23 +374,9 @@ class Coingate extends PaymentModule
                 'input'  => array(
                     array(
                         'type'     => 'text',
-                        'label'    => $this->l('APP ID'),
-                        'name'     => 'COINGATE_APP_ID',
-                        'desc'     => $this->l('Your APP ID (created on CoinGate)'),
-                        'required' => true,
-                    ),
-                    array(
-                        'type'     => 'text',
-                        'label'    => $this->l('API Key'),
-                        'name'     => 'COINGATE_API_KEY',
-                        'desc'     => $this->l('Your API key.'),
-                        'required' => true,
-                    ),
-                    array(
-                        'type'     => 'text',
-                        'label'    => $this->l('API Secret'),
-                        'name'     => 'COINGATE_API_SECRET',
-                        'desc'     => $this->l('Your API Secret key.'),
+                        'label'    => $this->l('API Auth Token'),
+                        'name'     => 'COINGATE_API_AUTH_TOKEN',
+                        'desc'     => $this->l('Your Auth Token (created on CoinGate)'),
                         'required' => true,
                     ),
                     array(
@@ -505,23 +469,15 @@ class Coingate extends PaymentModule
     public function getConfigFieldsValues()
     {
         return array(
-            'COINGATE_APP_ID'           => $this->stripString(Tools::getValue(
-                'COINGATE_APP_ID',
-                Configuration::get('COINGATE_APP_ID')
-            )),
-            'COINGATE_API_KEY'          => $this->stripString(Tools::getValue(
-                'COINGATE_API_KEY',
-                Configuration::get('COINGATE_API_KEY')
-            )),
-            'COINGATE_API_SECRET'       => $this->stripString(Tools::getValue(
-                'COINGATE_API_SECRET',
-                Configuration::get('COINGATE_API_SECRET')
+            'COINGATE_API_AUTH_TOKEN' => $this->stripString(Tools::getValue(
+                'COINGATE_API_AUTH_TOKEN',
+                empty(Configuration::get('COINGATE_API_AUTH_TOKEN')) ? Configuration::get('COINGATE_API_SECRET') : Configuration::get('COINGATE_API_AUTH_TOKEN')
             )),
             'COINGATE_RECEIVE_CURRENCY' => Tools::getValue(
                 'COINGATE_RECEIVE_CURRENCY',
                 Configuration::get('COINGATE_RECEIVE_CURRENCY')
             ),
-            'COINGATE_TEST'             => Tools::getValue(
+            'COINGATE_TEST' => Tools::getValue(
                 'COINGATE_TEST',
                 Configuration::get('COINGATE_TEST')
             ),

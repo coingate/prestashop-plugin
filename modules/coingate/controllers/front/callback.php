@@ -50,7 +50,9 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
             }
 
             $token = $this->generateToken(Tools::getValue('order_id'));
-            $cg_token = Tools::getValue('cg_token');
+            $cg_token = Tools::getValue('token');
+            $cg_token = empty($cg_token) ? Tools::getValue('cg_token') : $cg_token;
+
 
             if (empty($cg_token) || strcmp($cg_token, $token) !== 0) {
                 $error_message = 'CoinGate Token: ' . Tools::getValue('cg_token') . ' is not valid';
@@ -59,10 +61,11 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 throw new Exception($error_message);
             }
 
+            $auth_token = Configuration::get('COINGATE_API_AUTH_TOKEN');
+            $auth_token = empty($auth_token) ? Configuration::get('COINGATE_API_SECRET') : $auth_token;
+
             $cgConfig = array(
-              'app_id' => Configuration::get('COINGATE_APP_ID'),
-              'api_key' => Configuration::get('COINGATE_API_KEY'),
-              'api_secret' => Configuration::get('COINGATE_API_SECRET'),
+              'auth_token' => $auth_token,
               'environment' => (int)(Configuration::get('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
               'user_agent' => 'CoinGate - Prestashop v'._PS_VERSION_
                 .' Extension v'.COINGATE_PRESTASHOP_EXTENSION_VERSION
@@ -88,11 +91,18 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
 
             switch ($cgOrder->status) {
                 case 'paid':
-                    if (((float) $order->getOrdersTotalPaid()) == ((float) $cgOrder->price)) {
+                    if (((float) $order->getOrdersTotalPaid()) == ((float) $cgOrder->price_amount)) {
                         $order_status = 'PS_OS_PAYMENT';
                     } else {
                         $order_status = 'COINGATE_INVALID';
+                        $this->logError('PS Orders Total does not match with Coingate Price Amount', $cart_id);
                     }
+                    break;
+                case 'pending':
+                    $order_status = 'COINGATE_PENDING';
+                    break;
+                case 'confirming':
+                    $order_status = 'COINGATE_CONFIRMING';
                     break;
                 case 'expired':
                     $order_status = 'COINGATE_EXPIRED';
@@ -140,7 +150,7 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
 
     private function generateToken($order_id)
     {
-        return hash('sha256', $order_id + $this->module->api_secret);
+        return hash('sha256', $order_id + (empty($this->module->api_auth_token) ? $this->module->api_secret : $this->module->api_auth_token));
     }
 
     private function logError($message, $cart_id)

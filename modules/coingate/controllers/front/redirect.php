@@ -64,10 +64,11 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
           'key'         => $customer->secure_key
         ));
 
+        $auth_token = Configuration::get('COINGATE_API_AUTH_TOKEN');
+        $auth_token = empty($auth_token) ? Configuration::get('COINGATE_API_SECRET') : $auth_token;
+
         $cgConfig = array(
-          'app_id' => Configuration::get('COINGATE_APP_ID'),
-          'api_key' => Configuration::get('COINGATE_API_KEY'),
-          'api_secret' => Configuration::get('COINGATE_API_SECRET'),
+          'auth_token' => $auth_token,
           'environment' => (int)(Configuration::get('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
           'user_agent' => 'CoinGate - Prestashop v'._PS_VERSION_.' Extension v'.COINGATE_PRESTASHOP_EXTENSION_VERSION
         );
@@ -76,18 +77,15 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
 
         $order = \CoinGate\Merchant\Order::create(array(
             'order_id'         => $cart->id,
-            'price'            => $total,
-            'currency'         => $currency->iso_code,
+            'price_amount'     => $total,
+            'price_currency'   => $currency->iso_code,
             'receive_currency' => $this->module->receive_currency,
             'cancel_url'       => $this->context->link->getModuleLink('coingate', 'cancel'),
-            'callback_url'     => $this->context->link->getModuleLink(
-                'coingate',
-                'callback',
-                array('cg_token' => $token)
-            ),
+            'callback_url'     => $this->context->link->getModuleLink('coingate', 'callback'),
             'success_url'      => $success_url,
             'title'            => Configuration::get('PS_SHOP_NAME') . ' Order #' . $cart->id,
-            'description'      => join($description, ', ')
+            'description'      => join($description, ', '),
+            'token'            => $token
         ));
 
         if ($order) {
@@ -116,6 +114,6 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
 
     private function generateToken($order_id)
     {
-        return hash('sha256', $order_id + $this->module->api_secret);
+        return hash('sha256', $order_id + (empty($this->module->api_auth_token) ? $this->module->api_secret : $this->module->api_auth_token));
     }
 }
