@@ -472,10 +472,9 @@ class Coingate extends PaymentModule
         return array(
             'COINGATE_API_AUTH_TOKEN' => $this->stripString(Tools::getValue(
                 'COINGATE_API_AUTH_TOKEN',
-                empty(
-                  Configuration::get('COINGATE_API_AUTH_TOKEN')) ?
-                  Configuration::get('COINGATE_API_SECRET') :
-                  Configuration::get('COINGATE_API_AUTH_TOKEN')
+                empty(Configuration::get('COINGATE_API_AUTH_TOKEN')) ?
+                Configuration::get('COINGATE_API_SECRET') :
+                Configuration::get('COINGATE_API_AUTH_TOKEN')
             )),
             'COINGATE_RECEIVE_CURRENCY' => Tools::getValue(
                 'COINGATE_RECEIVE_CURRENCY',
