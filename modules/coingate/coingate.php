@@ -70,8 +70,7 @@ class Coingate extends PaymentModule
 
         if (!empty($config['COINGATE_API_AUTH_TOKEN'])) {
             $this->api_auth_token = $config['COINGATE_API_AUTH_TOKEN'];
-        }
-
+        } 
         elseif (!empty($config['COINGATE_API_SECRET'])) {
             $this->api_auth_token = $config['COINGATE_API_SECRET'];
         }
