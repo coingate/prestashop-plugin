@@ -150,7 +150,9 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
 
     private function generateToken($order_id)
     {
-        return hash('sha256', $order_id + (empty($this->module->api_auth_token) ? $this->module->api_secret : $this->module->api_auth_token));
+        return hash('sha256', $order_id + (empty(
+          $this->module->api_auth_token) ? $this->module->api_secret : $this->module->api_auth_token
+        ));
     }
 
     private function logError($message, $cart_id)
