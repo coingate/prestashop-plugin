@@ -13,6 +13,8 @@ Sign up for CoinGate account at <https://coingate.com> for production and <https
 
 Please note, that for "Test" mode you **must** generate separate API credentials on <https://sandbox.coingate.com>. API credentials generated on <https://coingate.com> will **not** work for "Test" mode.
 
+Also note, that *Receive Currency* parameter in your module configuration window defines the currency of your settlements from CoinGate. Set it to BTC, EUR or USD, depending on how you wish to receive payouts. To receive settlements in **Euros** or **U.S. Dollars** to your bank, you have to verify as a merchant on CoinGate (login to your CoinGate account and click *Verification*). If you set your receive currency to **Bitcoin**, verification is not needed.
+
 ### via PrestaShop FTP Uploader
 
 1. Download <https://github.com/coingate/prestashop-plugin/releases/download/v1.4.0/CoinGate_Prestashop-1.4.0.zip>
@@ -23,6 +25,6 @@ Please note, that for "Test" mode you **must** generate separate API credentials
 
 4. In the **Modules list** choose **Payment and Gateways**.
 
-5. Find **Bitcoin via CoinGate** and click **Install** button to next to it, then click **Proceed with the installation**.
+5. Find **Cryptocurrency Payments via CoinGate** and click **Install** button to next to it, then click **Proceed with the installation**.
 
-6. Enter your [API credentials](https://support.coingate.com/en/42/how-can-i-create-coingate-api-credentials) (*App ID*, *API Key*, *API Secret*) and click **Save**.
+6. Enter your [API credentials](https://support.coingate.com/en/42/how-can-i-create-coingate-api-credentials) (*Auth Token*). Configure **Receive Currency** and click **Save**.
