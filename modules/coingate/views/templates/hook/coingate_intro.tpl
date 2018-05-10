@@ -38,7 +38,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h2>Bitcoin, Ethereum, Litecoin or other (via CoinGate)</h2>
+          <h2>{l s='Bitcoin, Ethereum, Litecoin or other (via CoinGate)' mod='coingate'}</h2>
         </div>
         <div class="modal-body">
         </div>

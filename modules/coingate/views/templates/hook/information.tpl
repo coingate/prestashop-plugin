@@ -35,35 +35,40 @@
 <div id="Information" class="tabcontent">
 	<div class="wrapper">
 	  <img src="../modules/coingate/views/img/invoice.png" style="float:right;"/>
-	  <h2 class="coingate-information-header">Accept Bitcoin, Litecoin, Ethereum and other digital currencies on your PrestaShop store with CoinGate</h2><br/>
-	  <strong> What is CoinGate? </strong> <br/>
-	  <p>We offer a fully automated cryptocurrency processing platform and invoice system. Accept any cryptocurrency and get paid in Euros or U.S. Dollars directly to your bank account (for verified merchants), or just keep bitcoins!</p><br/>
-	  <strong>Getting started</strong><br/>
+	  <h2 class="coingate-information-header">
+      {l s='Accept Bitcoin, Litecoin, Ethereum and other digital currencies on your PrestaShop store with CoinGate' mod='coingate'}
+    </h2><br/>
+	  <strong>{l s='What is CoinGate?' mod='coingate'}</strong> <br/>
+	  <p>
+      {l s='We offer a fully automated cryptocurrency processing platform and invoice system. Accept any cryptocurrency and get paid in Euros or
+       U.S. Dollars directly to your bank account (for verified merchants), or just keep bitcoins!' mod='coingate'}
+    </p><br/>
+	  <strong>{l s='Getting started' mod='coingate'}</strong><br/>
 	  <p>
 	  	<ul>
-	  		<li>Install the CoinGate module on PrestaShop</li>
-	  		<li>Visit <a href="https://coingate.com" target="_blank">coingate.com</a> and create an account</li>
-	  		<li>Get your API credentials and copy-paste them to the Configuration page in CoinGate module</li>
-	  		<li>Read our <a href="https://blog.coingate.com/2017/04/install-prestashop-bitcoin/" target="_blank">detailed guide</a> for assistance</li>
+	  		<li>{l s='Install the CoinGate module on PrestaShop' mod='coingate'}</li>
+	  		<li>{l s='Visit <a href="https://coingate.com" target="_blank">coingate.com</a> and create an account' mod='coingate'}</li>
+	  		<li>{l s='Get your API credentials and copy-paste them to the Configuration page in CoinGate module' mod='coingate'}</li>
+	  		<li>{l s='Read our <a href="https://blog.coingate.com/2017/04/install-prestashop-bitcoin/" target="_blank">detailed guide</a> for assistance' mod='coingate'}</li>
 	  	</ul>
 	  </p>
 	  <img src="../modules/coingate/views/img/currencies.png" style="float:right;"/>
 	  <p class="sign-up"><br/>
-	  	<a href="https://coingate.com/sign_up" class="sign-up-button">Sign up on CoinGate</a>
+	  	<a href="https://coingate.com/sign_up" class="sign-up-button">{l s='Sign up on CoinGate' mod='coingate'}</a>
 	  </p><br/>
-	  <strong>Features</strong>
+	  <strong>{l s='Features' mod='coingate'}</strong>
 	  <p>
 	  	<ul>
-	  		<li>The gateway is <strong>fully automatic</strong> - set and forget it.</li>
-	  		<li>Payment amount is calculated using <strong> real-time exchange rates</strong>.</li>
-	  		<li>Your customers can select to <strong> pay with Bitcoin, Litecoin, Ethereum and 40+ other cryptocurrencies </strong> at checkout, while your payouts are in single currency of your choice.</li>
-	  		<li><a href="https://sandbox.coingate.com" target="_blank">Sandbox environment</a> for testing with Testnet Bitcoin.</li>
-	  		<li><strong>Transparent pricing:</strong> flat 1% processing fee, no setup or recurring fees.</li>
-	  		<li><strong> No chargebacks</strong> - guaranteed!</li>
+	  		<li>{l s='The gateway is <strong>fully automatic</strong> - set and forget it.' mod='coingate'}</li>
+	  		<li>{l s='Payment amount is calculated using <strong> real-time exchange rates' mod='coingate'}</strong>.</li>
+	  		<li>{l s='Your customers can select to <strong> pay with Bitcoin, Litecoin, Ethereum and 40+ other cryptocurrencies </strong> at checkout, while your payouts are in single currency of your choice.' mod='coingate'}</li>
+	  		<li><a href="https://sandbox.coingate.com" target="_blank">{l s='Sandbox environment</a> for testing with Testnet Bitcoin.' mod='coingate'}</li>
+	  		<li><strong>{l s='Transparent pricing:</strong> flat 1% processing fee, no setup or recurring fees.' mod='coingate'}</li>
+	  		<li><strong>{l s='No chargebacks</strong> - guaranteed!' mod='coingate'}</li>
 	  	</ul>
 	  </p>
 
-	  <p><i> Questions? Contact support@coingate.com ! </i></p>
+	  <p><i>{l s='Questions? Contact support@coingate.com !' mod='coingate'}</i></p>
 	</div>
 </div>
 

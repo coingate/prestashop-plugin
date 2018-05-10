@@ -28,7 +28,7 @@
 *}
 <div class="alert alert-info">
     <p>
-        <strong>Having trouble?</strong> Contact <a href="mailto:support@coingate.com">support@coingate.com</a>.
-        <a href="https://developer.coingate.com/docs/issues" target="_blank">View common issues</a>.
+        <strong>{l s='Having trouble?' mod='coingate'}</strong>{l s='Contact <a href="mailto:support@coingate.com">support@coingate.com' mod='coingate'}</a>.
+        <a href="https://developer.coingate.com/docs/issues" target="_blank">{l s='View common issues' mod='coingate'}</a>.
     </p>
 </div>
