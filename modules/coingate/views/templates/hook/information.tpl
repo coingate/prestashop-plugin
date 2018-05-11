@@ -72,7 +72,7 @@
         </li>
 	  		<li>{l s='Payment amount is calculated using' mod='coingate'}<strong> {l s='real-time exchange rates' mod='coingate'}</strong>.</li>
 	  		<li>
-          {l s='Your customers can select to
+          {l s='Your customers can select to' mod='coingate'}
           <strong>{l s=' pay with Bitcoin, Litecoin, Ethereum and 40+ other cryptocurrencies' mod='coingate'} </strong>
           {l s=' at checkout, while your payouts are in single currency of your choice.' mod='coingate'}
          </li>
