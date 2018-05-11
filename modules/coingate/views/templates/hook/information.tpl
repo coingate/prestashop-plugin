@@ -24,7 +24,7 @@
 *
 *  @author    CoinGate <info@coingate.com>
 *  @copyright 2015-2016 CoinGate
-*  @license   https://github.com/coingate/thirtybees-plugin/blob/master/LICENSE  The MIT License (MIT)
+*  @license   https://github.com/coingate/prestashop-plugin/blob/master/LICENSE  The MIT License (MIT)
 *}
 <div class="tab">
   <button class="tablinks" onclick="changeTab(event, 'Information')" id="defaultOpen">{l s='Information' mod='coingate'}</button>
