@@ -24,7 +24,7 @@
 *
 *  @author    CoinGate <info@coingate.com>
 *  @copyright 2015-2016 CoinGate
-*  @license   https://github.com/coingate/prestashop-plugin/blob/master/LICENSE  The MIT License (MIT)
+*  @license   https://github.com/coingate/thirtybees-plugin/blob/master/LICENSE  The MIT License (MIT)
 *}
 <div class="tab">
   <button class="tablinks" onclick="changeTab(event, 'Information')" id="defaultOpen">{l s='Information' mod='coingate'}</button>
@@ -65,25 +65,16 @@
 	  <strong>{l s='Features' mod='coingate'}</strong>
 	  <p>
 	  	<ul>
-	  		<li>
-          {l s='The gateway is ' mod='coingate'}
-          <strong>{l s='fully automatic' mod='coingate'}</strong>
-          {l s=' - set and forget it.' mod='coingate'}
-        </li>
-	  		<li>{l s='Payment amount is calculated using' mod='coingate'}<strong> {l s='real-time exchange rates' mod='coingate'}</strong>.</li>
-	  		<li>
-          {l s='Your customers can select to' mod='coingate'}
-          <strong>{l s=' pay with Bitcoin, Litecoin, Ethereum and 40+ other cryptocurrencies' mod='coingate'} </strong>
-          {l s=' at checkout, while your payouts are in single currency of your choice.' mod='coingate'}
-         </li>
+	  		<li>{l s='The gateway is fully automatic - set and forget it.' mod='coingate'}</li>
+	  		<li>{l s='Payment amount is calculated using real-time exchange rates' mod='coingate'}</li>
+	  		<li>{l s='Your customers can select to pay with Bitcoin, Litecoin, Ethereum and 40+ other cryptocurrencies at checkout, while your payouts are in single currency of your choice.' mod='coingate'}</li>
 	  		<li>
           <a href="https://sandbox.coingate.com" target="_blank">
             {l s='Sandbox environment' mod='coingate'}
           </a> {l s='for testing with Testnet Bitcoin.' mod='coingate'}
         </li>
-	  		<li><strong>{l s='Transparent pricing:' mod='coingate'}</strong>
-          {l s=' flat 1% processing fee, no setup or recurring fees.' mod='coingate'}</li>
-	  		<li><strong>{l s='No chargebacks' mod='coingate'}</strong>{l s=' - guaranteed!' mod='coingate'}</li>
+	  		<li>{l s='Transparent pricing: flat 1% processing fee, no setup or recurring fees.' mod='coingate'}</li>
+	  		<li>{l s='No chargebacks - guaranteed!' mod='coingate'}</li>
 	  	</ul>
 	  </p>
 

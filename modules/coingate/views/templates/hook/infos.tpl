@@ -24,11 +24,11 @@
 *
 *  @author    CoinGate <info@coingate.com>
 *  @copyright 2015-2016 CoinGate
-*  @license   https://github.com/coingate/prestashop-plugin/blob/master/LICENSE  The MIT License (MIT)
+*  @license   https://github.com/coingate/thirtybees-plugin/blob/master/LICENSE  The MIT License (MIT)
 *}
 <div class="alert alert-info">
     <p>
-        <strong>{l s='Having trouble?' mod='coingate'}</strong>{l s='Contact <a href="mailto:support@coingate.com">support@coingate.com' mod='coingate'}</a>.
+        <strong>{l s='Having trouble? ' mod='coingate'}</strong>{l s='Contact ' mod='coingate'}<a href="mailto:support@coingate.com">{l s='support@coingate.com' mod='coingate'}</a>.
         <a href="https://developer.coingate.com/docs/issues" target="_blank">{l s='View common issues' mod='coingate'}</a>.
     </p>
 </div>
