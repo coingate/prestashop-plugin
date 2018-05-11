@@ -67,7 +67,7 @@
 	  	<ul>
 	  		<li>
           {l s='The gateway is ' mod='coingate'}
-          <strong>{l s='fully automatic'}</strong>
+          <strong>{l s='fully automatic' mod='coingate'}</strong>
           {l s=' - set and forget it.' mod='coingate'}
         </li>
 	  		<li>{l s='Payment amount is calculated using' mod='coingate'}<strong> {l s='real-time exchange rates' mod='coingate'}</strong>.</li>
