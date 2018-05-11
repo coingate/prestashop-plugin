@@ -27,8 +27,8 @@
 *  @license   https://github.com/coingate/prestashop-plugin/blob/master/LICENSE  The MIT License (MIT)
 *}
 <div class="tab">
-  <button class="tablinks" onclick="changeTab(event, 'Information')" id="defaultOpen">Information</button>
-  <button class="tablinks" onclick="changeTab(event, 'Configure Settings')">Configure Settings</button>
+  <button class="tablinks" onclick="changeTab(event, 'Information')" id="defaultOpen">{l s='Information' mod='coingate'}</button>
+  <button class="tablinks" onclick="changeTab(event, 'Configure Settings')">{l s='Configure Settings' mod='coingate'}</button>
 </div>
 
 <!-- Tab content -->
@@ -47,9 +47,15 @@
 	  <p>
 	  	<ul>
 	  		<li>{l s='Install the CoinGate module on PrestaShop' mod='coingate'}</li>
-	  		<li>{l s='Visit <a href="https://coingate.com" target="_blank">coingate.com</a> and create an account' mod='coingate'}</li>
+	  		<li>
+          {l s='Visit ' mod='coingate'}<a href="https://coingate.com" target="_blank">{l s='coingate.com' mod='coingate'}</a>
+          {l s='and create an account' mod='coingate'}
+         </li>
 	  		<li>{l s='Get your API credentials and copy-paste them to the Configuration page in CoinGate module' mod='coingate'}</li>
-	  		<li>{l s='Read our <a href="https://blog.coingate.com/2017/04/install-prestashop-bitcoin/" target="_blank">detailed guide</a> for assistance' mod='coingate'}</li>
+	  		<li>{l s='Read our ' mod='coingate'}
+          <a href="https://blog.coingate.com/2017/04/install-prestashop-bitcoin/" target="_blank">
+            {l s='detailed guide' mod='coingate'}
+          </a> {l s='for assistance' mod='coingate'}</li>
 	  	</ul>
 	  </p>
 	  <img src="../modules/coingate/views/img/currencies.png" style="float:right;"/>
@@ -59,12 +65,25 @@
 	  <strong>{l s='Features' mod='coingate'}</strong>
 	  <p>
 	  	<ul>
-	  		<li>{l s='The gateway is <strong>fully automatic</strong> - set and forget it.' mod='coingate'}</li>
-	  		<li>{l s='Payment amount is calculated using <strong> real-time exchange rates' mod='coingate'}</strong>.</li>
-	  		<li>{l s='Your customers can select to <strong> pay with Bitcoin, Litecoin, Ethereum and 40+ other cryptocurrencies </strong> at checkout, while your payouts are in single currency of your choice.' mod='coingate'}</li>
-	  		<li><a href="https://sandbox.coingate.com" target="_blank">{l s='Sandbox environment</a> for testing with Testnet Bitcoin.' mod='coingate'}</li>
-	  		<li><strong>{l s='Transparent pricing:</strong> flat 1% processing fee, no setup or recurring fees.' mod='coingate'}</li>
-	  		<li><strong>{l s='No chargebacks</strong> - guaranteed!' mod='coingate'}</li>
+	  		<li>
+          {l s='The gateway is ' mod='coingate'}
+          <strong>{l s='fully automatic'}</strong>
+          {l s=' - set and forget it.' mod='coingate'}
+        </li>
+	  		<li>{l s='Payment amount is calculated using' mod='coingate'}<strong> {l s='real-time exchange rates' mod='coingate'}</strong>.</li>
+	  		<li>
+          {l s='Your customers can select to
+          <strong>{l s=' pay with Bitcoin, Litecoin, Ethereum and 40+ other cryptocurrencies' mod='coingate'} </strong>
+          {l s=' at checkout, while your payouts are in single currency of your choice.' mod='coingate'}
+         </li>
+	  		<li>
+          <a href="https://sandbox.coingate.com" target="_blank">
+            {l s='Sandbox environment' mod='coingate'}
+          </a> {l s='for testing with Testnet Bitcoin.' mod='coingate'}
+        </li>
+	  		<li><strong>{l s='Transparent pricing:' mod='coingate'}</strong>
+          {l s=' flat 1% processing fee, no setup or recurring fees.' mod='coingate'}</li>
+	  		<li><strong>{l s='No chargebacks' mod='coingate'}</strong>{l s=' - guaranteed!' mod='coingate'}</li>
 	  	</ul>
 	  </p>
 
