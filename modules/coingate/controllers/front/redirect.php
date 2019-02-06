@@ -79,7 +79,7 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             'order_id'         => $cart->id,
             'price_amount'     => $total,
             'price_currency'   => $currency->iso_code,
-            'receive_currency' => $this->module->receive_currency,
+            'receive_currency' => Configuration::get('COINGATE_RECEIVE_CURRENCY'),
             'cancel_url'       => $this->context->link->getModuleLink('coingate', 'cancel'),
             'callback_url'     => $this->context->link->getModuleLink('coingate', 'callback'),
             'success_url'      => $success_url,
@@ -114,9 +114,10 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
 
     private function generateToken($order_id)
     {
-        return hash('sha256', $order_id + (empty($this->module->api_auth_token) ?
-        $this->module->api_secret :
-        $this->module->api_auth_token
+        return hash('sha256', $order_id . (empty(Configuration::get('COINGATE_API_AUTH_TOKEN')) ?
+                Configuration::get('API_SECRET') :
+                Configuration::get('COINGATE_API_AUTH_TOKEN')
         ));
+
     }
 }

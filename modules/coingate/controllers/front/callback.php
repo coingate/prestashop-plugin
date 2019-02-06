@@ -150,10 +150,11 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
 
     private function generateToken($order_id)
     {
-        return hash('sha256', $order_id + (empty($this->module->api_auth_token) ?
-        $this->module->api_secret :
-        $this->module->api_auth_token
-        ));
+        return hash('sha256', $order_id . (empty(Configuration::get('COINGATE_API_AUTH_TOKEN')) ?
+        Configuration::get('API_SECRET') :
+        Configuration::get('COINGATE_API_AUTH_TOKEN')
+));
+
     }
 
     private function logError($message, $cart_id)
