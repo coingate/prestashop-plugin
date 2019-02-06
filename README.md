@@ -19,12 +19,10 @@ Also note, that *Receive Currency* parameter in your module configuration window
 
 1. Download <https://github.com/coingate/prestashop-plugin/releases/download/v1.4.0/CoinGate_Prestashop-1.4.0.zip>
 
-2. Go to your PrestaShop admin panel » **Modules and Services**.
+2. Go to your PrestaShop admin panel » **Modules** » **Module Manager**.
 
-3. Click **Add a new module**, then click **Choose a file**, find the file you just downloaded, select it and click **Open**. Click **Upload this module**.
+3. Click **Upload a module**, then click **Select file**, find the file you just downloaded, select it and click **Open**.
 
-4. In the **Modules list** choose **Payment and Gateways**.
+4. When the installation is completed, click **Configure**.
 
-5. Find **Cryptocurrency Payments via CoinGate** and click **Install** button to next to it, then click **Proceed with the installation**.
-
-6. Enter your [API credentials](https://support.coingate.com/en/42/how-can-i-create-coingate-api-credentials) (*Auth Token*). Configure **Receive Currency** and click **Save**.
+4. In the **Configure Setting** tab of the Coingate Module enter your [API credentials](https://support.coingate.com/en/42/how-can-i-create-coingate-api-credentials) (*Auth Token*). Configure **Receive Currency** and **Test Mode** settings and click **Save**.
