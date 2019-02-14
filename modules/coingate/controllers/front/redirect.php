@@ -118,6 +118,5 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
                 Configuration::get('API_SECRET') :
                 Configuration::get('COINGATE_API_AUTH_TOKEN')
         ));
-
     }
 }
