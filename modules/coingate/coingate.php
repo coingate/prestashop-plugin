@@ -137,28 +137,28 @@ class Coingate extends PaymentModule
         if ($order_pending->add()) {
             copy(
                 _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_pending->id . '.png'
+                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_pending->id . '.gif'
             );
         }
 
         if ($order_expired->add()) {
             copy(
                 _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_expired->id . '.png'
+                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_expired->id . '.gif'
             );
         }
 
         if ($order_confirming->add()) {
             copy(
                 _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_confirming->id . '.png'
+                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_confirming->id . '.gif'
             );
         }
 
         if ($order_invalid->add()) {
             copy(
                 _PS_ROOT_DIR_ . '/modules/coingate/logo.png',
-                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_invalid->id . '.png'
+                _PS_ROOT_DIR_ . '/img/os/' . (int) $order_invalid->id . '.gif'
             );
         }
 
