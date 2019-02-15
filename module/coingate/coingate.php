@@ -396,7 +396,7 @@ class Coingate extends PaymentModule
                                 ),
                                 array(
                                     'id_option' => 'usdt',
-                                    'name'      => 'USDT (Ethereum)',
+                                    'name'      => 'USDT',
                                 ),
                                 array(
                                     'id_option' => 'eur',
