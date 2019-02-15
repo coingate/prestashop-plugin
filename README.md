@@ -17,7 +17,7 @@ Also note, that *Receive Currency* parameter in your module configuration window
 
 ### via PrestaShop FTP Uploader
 
-1. Download <https://github.com/coingate/prestashop-plugin/releases/download/v1.4.1/CoinGate_Prestashop-1.4.1.zip>
+1. Download <https://github.com/coingate/prestashop-plugin/releases/download/v1.4.2/CoinGate_Prestashop-1.4.2.zip>
 
 2. Go to your PrestaShop admin panel » **Modules** » **Module Manager**.
 
