@@ -69,73 +69,73 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 'environment' => (int)(Configuration::get('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
                 'user_agent' => 'CoinGate - Prestashop v' . _PS_VERSION_
                     . ' Extension v' . COINGATE_PRESTASHOP_EXTENSION_VERSION
-                  );
+            );
 
-                   \CoinGate\CoinGate::config($cgConfig);
-                    $cgOrder = \CoinGate\Merchant\Order::find(Tools::getValue('id'));
+            \CoinGate\CoinGate::config($cgConfig);
+            $cgOrder = \CoinGate\Merchant\Order::find(Tools::getValue('id'));
 
-                  if (!$cgOrder) {
-                      $error_message = 'CoinGate Order #' . Tools::getValue('id') . ' does not exists';
+            if (!$cgOrder) {
+                $error_message = 'CoinGate Order #' . Tools::getValue('id') . ' does not exists';
 
-                      $this->logError($error_message, $cart_id);
-                      throw new Exception($error_message);
+                $this->logError($error_message, $cart_id);
+                throw new Exception($error_message);
+            }
+
+            if ($order->id_cart != $cgOrder->order_id) {
+                $error_message = 'CG Order and PS cart does not match';
+
+                $this->logError($error_message, $cart_id);
+                throw new Exception($error_message);
+            }
+
+
+            switch ($cgOrder->status) {
+                case 'paid':
+                    if (((float)$order->getOrdersTotalPaid()) == ((float)$cgOrder->price_amount)) {
+                        $order_status = 'PS_OS_PAYMENT';
+                    } else {
+                        $order_status = 'COINGATE_INVALID';
+                        $this->logError('PS Orders Total does not match with Coingate Price Amount', $cart_id);
                     }
+                    break;
+                case 'pending':
+                    $order_status = 'COINGATE_PENDING';
+                    break;
+                case 'confirming':
+                    $order_status = 'COINGATE_CONFIRMING';
+                    break;
+                case 'expired':
+                    $order_status = 'COINGATE_EXPIRED';
+                    break;
+                case 'invalid':
+                    $order_status = 'COINGATE_INVALID';
+                    break;
+                case 'canceled':
+                    $order_status = 'PS_OS_CANCELED';
+                    break;
+                case 'refunded':
+                    $order_status = 'PS_OS_REFUND';
+                    break;
+                default:
+                    $order_status = false;
+            }
 
-                    if ($order->id_cart != $cgOrder->order_id) {
-                       $error_message = 'CG Order and PS cart does not match';
-
-                       $this->logError($error_message, $cart_id);
-                       throw new Exception($error_message);
-                      }
-
-
-                    switch ($cgOrder->status) {
-                       case 'paid':
-                           if (((float)$order->getOrdersTotalPaid()) == ((float)$cgOrder->price_amount)) {
-                               $order_status = 'PS_OS_PAYMENT';
-                            } else {
-                               $order_status = 'COINGATE_INVALID';
-                                $this->logError('PS Orders Total does not match with Coingate Price Amount', $cart_id);
-                           }
-                           break;
-                       case 'pending':
-                           $order_status = 'COINGATE_PENDING';
-                           break;
-                       case 'confirming':
-                           $order_status = 'COINGATE_CONFIRMING';
-                           break;
-                       case 'expired':
-                           $order_status = 'COINGATE_EXPIRED';
-                           break;
-                       case 'invalid':
-                           $order_status = 'COINGATE_INVALID';
-                           break;
-                       case 'canceled':
-                           $order_status = 'PS_OS_CANCELED';
-                           break;
-                       case 'refunded':
-                           $order_status = 'PS_OS_REFUND';
-                           break;
-                        default:
-                           $order_status = false;
-                     }
-
-                     if ($order_status !== false) {
-                         $history = new OrderHistory();
-                         $history->id_order = $order->id;
-                         $history->changeIdOrderState((int)Configuration::get($order_status), $order->id);
-                         $history->addWithemail(true, array(
+            if ($order_status !== false) {
+                $history = new OrderHistory();
+                $history->id_order = $order->id;
+                $history->changeIdOrderState((int)Configuration::get($order_status), $order->id);
+                $history->addWithemail(true, array(
                     'order_name' => Tools::getValue('order_id'),
-                          ));
+                ));
 
-                                        $this->context->smarty->assign(array(
-                                        'text' => 'OK'
-                                        ));
-                   } else {
-                        $this->context->smarty->assign(array(
-                        'text' => 'Order Status ' . $cgOrder->status . ' not implemented'
-                       ));
-                    }
+                $this->context->smarty->assign(array(
+                    'text' => 'OK'
+                ));
+            } else {
+                $this->context->smarty->assign(array(
+                    'text' => 'Order Status ' . $cgOrder->status . ' not implemented'
+                ));
+            }
         } catch (Exception $e) {
             $this->context->smarty->assign(array(
                 'text' => get_class($e) . ': ' . $e->getMessage()
