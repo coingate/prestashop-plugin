@@ -33,7 +33,7 @@
         </p>
 {else}
       	<p class="warning">
-                {l s="We noticed a problem with your order. If you think this is an error, feel free to contact our" mod='coingate'}
+                {l s='We noticed a problem with your order. If you think this is an error, feel free to contact our' mod='coingate'}
                 <a href="{$link->getPageLink('contact', true)|escape:'html'}">{l s='customer support team. ' mod='coingate'}</a>.
         </p>
 {/if}
