@@ -392,15 +392,23 @@ class Coingate extends PaymentModule
                             'query' => array(
                                 array(
                                     'id_option' => 'btc',
-                                    'name' => 'Bitcoin (฿)',
+                                    'name'      => 'Bitcoin (฿)',
+                                ),
+                                array(
+                                    'id_option' => 'usdt',
+                                    'name'      => 'Tether USDT(ERC20)',
                                 ),
                                 array(
                                     'id_option' => 'eur',
-                                    'name' => 'Euros (€)',
+                                    'name'      => 'Euros (€)',
                                 ),
                                 array(
                                     'id_option' => 'usd',
-                                    'name' => 'US Dollars ($)',
+                                    'name'      => 'US Dollars ($)',
+                                ),
+                                array(
+                                    'id_option' => 'DO_NOT_CONVERT',
+                                    'name'      => 'Do not convert',
                                 ),
                             ),
                             'id' => 'id_option',
