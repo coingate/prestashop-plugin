@@ -277,6 +277,25 @@ class Coingate extends PaymentModule
         return $this->html;
     }
 
+    public function hookPayment($params)	
+    {	
+        if (_PS_VERSION_ >= 1.7) {	
+            return;	
+        }	
+         if (!$this->active) {	
+            return;	
+        }	
+         if (!$this->checkCurrency($params['cart'])) {	
+            return;	
+        }	
+         $this->smarty->assign(array(	
+            'this_path'     => $this->_path,	
+            'this_path_bw'  => $this->_path,	
+            'this_path_ssl' => Tools::getShopDomainSsl(true, true) . __PS_BASE_URI__ . 'modules/' . $this->name . '/',	
+        ));	
+         return $this->display(__FILE__, 'payment.tpl');	
+    }
+
     public function hookDisplayOrderConfirmation($params)
     {
         if (_PS_VERSION_ <= 1.7) {
