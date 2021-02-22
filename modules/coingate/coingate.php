@@ -341,6 +341,27 @@ class Coingate extends PaymentModule
         return $this->display(__FILE__, 'payment_return.tpl');
     }
 
+    public function hookDisplayPaymentEU($params)
+    {
+        if (!$this->active) {
+            return null;
+        }
+
+        if (!$this->checkCurrency($params['cart'])) {
+            return null;
+        }
+
+        $paymentOptions = [];
+
+        $paymentOptions[] = [
+            'cta_text' => $this->l('Bitcoin, Ethereum, Litecoin or other'),
+            'logo' => Media::getMediaPath($this->local_path . 'views/img/bitcoin-logo.png'),
+            'action' => $this->context->link->getModuleLink($this->name, 'redirect', [], true)
+        ];
+
+        return $paymentOptions;
+    }
+
 
     public function hookPaymentOptions($params)
     {
