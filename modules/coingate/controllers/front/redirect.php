@@ -84,7 +84,7 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             'callback_url'     => $this->context->link->getModuleLink('coingate', 'callback'),
             'success_url'      => $success_url,
             'title'            => Configuration::get('PS_SHOP_NAME') . ' Order #' . $cart->id,
-            'description'      => join($description, ', '),
+            'description'      => join(', ', $description),
             'token'            => $token
         ));
 
