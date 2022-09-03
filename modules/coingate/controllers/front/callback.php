@@ -28,8 +28,7 @@
  * @license   https://github.com/coingate/prestashop-plugin/blob/master/LICENSE  The MIT License (MIT)
  */
 
-require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate/init.php');
-require_once(_PS_MODULE_DIR_ . '/coingate/vendor/version.php');
+require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php');
 
 class CoingateCallbackModuleFrontController extends ModuleFrontController
 {
@@ -49,10 +48,9 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 throw new Exception($error_message);
             }
 
-            $token = $this->generateToken(Tools::getValue('order_id'));
+            $token = $this->generateToken($cart_id);
             $cg_token = Tools::getValue('token');
             $cg_token = empty($cg_token) ? Tools::getValue('cg_token') : $cg_token;
-
 
             if (empty($cg_token) || strcmp($cg_token, $token) !== 0) {
                 $error_message = 'CoinGate Token: ' . Tools::getValue('cg_token') . ' is not valid';
@@ -63,16 +61,10 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
 
             $auth_token = Configuration::get('COINGATE_API_AUTH_TOKEN');
             $auth_token = empty($auth_token) ? Configuration::get('COINGATE_API_SECRET') : $auth_token;
+            $environment = (Configuration::get('COINGATE_TEST')) == 1 ? true : false;
 
-            $cgConfig = array(
-                'auth_token' => $auth_token,
-                'environment' => (int)(Configuration::get('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
-                'user_agent' => 'CoinGate - Prestashop v' . _PS_VERSION_
-                    . ' Extension v' . COINGATE_PRESTASHOP_EXTENSION_VERSION
-            );
-
-            \CoinGate\CoinGate::config($cgConfig);
-            $cgOrder = \CoinGate\Merchant\Order::find(Tools::getValue('id'));
+            $client = new \CoinGate\Client($auth_token, $environment);
+            $cgOrder = $client->order->get(Tools::getValue('id'));
 
             if (!$cgOrder) {
                 $error_message = 'CoinGate Order #' . Tools::getValue('id') . ' does not exists';
@@ -141,11 +133,8 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 'text' => get_class($e) . ': ' . $e->getMessage()
             ));
         }
-        if (_PS_VERSION_ >= '1.7') {
-            $this->setTemplate('module:coingate/views/templates/front/payment_callback.tpl');
-        } else {
-            $this->setTemplate('payment_callback.tpl');
-        }
+
+        $this->setTemplate('module:coingate/views/templates/front/payment_callback.tpl');
     }
 
     private function generateToken($order_id)
