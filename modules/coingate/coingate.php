@@ -211,6 +211,7 @@ class Coingate extends PaymentModule
             if (empty($this->postErrors)) {
                 $auth_token = $this->stripString(Tools::getValue('COINGATE_API_AUTH_TOKEN'));
                 $environment = (Configuration::get('COINGATE_TEST')) == 1 ? true : false;
+                \CoinGate\Client::setAppInfo("Prestashop", $this->version);
                 $test = \CoinGate\Client::testConnection($auth_token, $environment);
 
                 if ($test !== true) {
