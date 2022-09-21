@@ -33,6 +33,7 @@ require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php');
 class CoingateRedirectModuleFrontController extends ModuleFrontController
 {
     public $ssl = true;
+    public $version = '1.5.0';
 
     public function initContent()
     {
@@ -68,6 +69,7 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
         $environment = (Configuration::get('COINGATE_TEST')) == 1 ? true : false;
 
         $client = new \CoinGate\Client($auth_token, $environment);
+        \CoinGate\Client::setAppInfo("PrestashopMarketplace", $this->version);
         $params = [
             'order_id' => $cart->id,
             'price_amount' => $total,
@@ -76,6 +78,7 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             'callback_url' => $this->context->link->getModuleLink('coingate', 'callback'),
             'cancel_url' => $this->context->link->getModuleLink('coingate', 'cancel'),
             'success_url' => $success_url,
+            'purchaser_email' => $customer->email,
             'title' => Configuration::get('PS_SHOP_NAME') . ' Order #' . $cart->id,
             'description' => join(', ', $description),
             'token' => $this->generateToken($cart->id),
@@ -95,7 +98,7 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             $this->module->validateOrder(
                 $cart->id,
                 Configuration::get('COINGATE_PENDING'),
-                $total,
+                0,
                 $this->module->displayName,
                 null,
                 null,
