@@ -1,11 +1,35 @@
 # PrestaShop CoinGate Plugin
 
-Accept Bitcoin & Altcoins on your PrestaShop store.
+Accept cryptocurrency payments in your PrestaShop store with [CoinGate](https://coingate.com/) - our fully automated payment processing and invoice system makes it easy, convenient, and risk-free for you and your customers.
 
-Read the module installation instructions below to get started with CoinGate Bitcoin & Altcoin payment gateway on your shop.
-Full setup guide with screenshots is also available on our blog: <https://blog.coingate.com/2017/04/install-prestashop-bitcoin/>
+With a simple installation of the CoinGate PrestaShop extension in your store's checkout, customers can pay for your goods and services with cryptocurrencies like Bitcoin, Litecoin, Ethereum, Bitcoin Cash, and XRP, among 50+ other altcoins.
+
+With CoinGate’s PrestaShop plugin, merchants can also receive real-time settlements of cryptocurrencies in Euros - payouts are made directly to your bank account. This way, businesses are not exposed to price volatility risk and can enjoy fixed payouts no matter the cryptocurrency’s price.
+
+Alternatively, store owners can choose to receive payouts in cryptocurrency as well.
 
 **Plugin is compatible with Prestashop 1.7 or greater version**
+
+### Features:
+* The gateway is fully automatic – set it and forget it.
+* Receive automatic payment confirmations and order status updates.
+* Set your prices in any local fiat currency, and the payment amount in cryptocurrency will be calculated using real-time exchange rates.
+* [Customize the invoice](https://blog.coingate.com/2019/03/how-to-customize-merchants-invoice-guide/) – disable/enable cryptocurrencies, change their position on the invoice, and more.
+* Select the [settlement currencies and payout options](https://blog.coingate.com/2019/08/payouts-fiat-settlements/) for each crypto-asset;
+* Use a [sandbox environment](https://sandbox.coingate.com) for testing with Testnet Bitcoin.
+* No recurring fees.
+* No chargebacks – guaranteed!
+
+### Functionality:
+* [Extend invoice expiration time](https://blog.coingate.com/2017/09/bitcoin-merchant-extend-invoice-expiration-time/) up to 24 hours (if payouts are in BTC).
+* Accept slight underpayments automatically.
+* Refunds can be issued directly from the invoice and without the involvement of the seller.
+
+### How it works - an example:
+1. An item in the store costs 100 euro.
+2. A customer wants to buy the item and selects to pay with Bitcoin.
+3. An invoice is generated and, according to the current exchange rate, the price is 10000 euro per bitcoin, so the customer has to pay 0.01 bitcoins.
+4. Once the invoice is paid, the merchant receives 99 euro (100 euro minus our 1% flat fee), or 0.0099 BTC.
 
 ## Install
 
@@ -17,7 +41,7 @@ Also note, that *Receive Currency* parameter in your module configuration window
 
 ### via PrestaShop FTP Uploader
 
-1. Download <https://github.com/coingate/prestashop-plugin/releases/download/v1.4.3/CoinGate_Prestashop-1.4.3.zip>
+1. Download <https://github.com/coingate/prestashop-plugin/releases/download/v1.5.1/CoinGate_Prestashop-1.5.1.zip>
 
 2. Go to your PrestaShop admin panel » **Modules** » **Module Manager**.
 
