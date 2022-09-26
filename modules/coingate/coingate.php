@@ -32,8 +32,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-require_once _PS_MODULE_DIR_ . '/coingate/vendor/coingate/init.php';
-require_once _PS_MODULE_DIR_ . '/coingate/vendor/version.php';
+require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php');
 
 class Coingate extends PaymentModule
 {
@@ -48,11 +47,11 @@ class Coingate extends PaymentModule
     {
         $this->name = 'coingate';
         $this->tab = 'payments_gateways';
-        $this->version = '1.4.4';
+        $this->version = '1.5.0';
         $this->author = 'CoinGate.com';
         $this->is_eu_compatible = 1;
         $this->controllers = array('payment', 'redirect', 'callback', 'cancel');
-        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
         $this->module_key = 'bbccfdc38891a5f0428161d79b55ce55';
 
         $this->currencies = true;
@@ -210,19 +209,13 @@ class Coingate extends PaymentModule
             }
 
             if (empty($this->postErrors)) {
-                $cgConfig = array(
-                    'auth_token' => $this->stripString(Tools::getValue('COINGATE_API_AUTH_TOKEN')),
-                    'environment' => (int)(Tools::getValue('COINGATE_TEST')) == 1 ? 'sandbox' : 'live',
-                    'user_agent' => 'CoinGate - Prestashop v' . _PS_VERSION_
-                        . ' Extension v' . COINGATE_PRESTASHOP_EXTENSION_VERSION,
-                );
-
-                \CoinGate\CoinGate::config($cgConfig);
-
-                $test = \CoinGate\CoinGate::testConnection();
+                $auth_token = $this->stripString(Tools::getValue('COINGATE_API_AUTH_TOKEN'));
+                $environment = (Configuration::get('COINGATE_TEST')) == 1 ? true : false;
+                \CoinGate\Client::setAppInfo("PrestashopMarketplace", $this->version);
+                $test = \CoinGate\Client::testConnection($auth_token, $environment);
 
                 if ($test !== true) {
-                    $this->postErrors[] = $this->l($test);
+                    $this->postErrors[] = $this->l('API connection not work');
                 }
             }
         }
@@ -277,31 +270,8 @@ class Coingate extends PaymentModule
         return $this->html;
     }
 
-    public function hookPayment($params)	
-    {	
-        if (_PS_VERSION_ >= 1.7) {	
-            return;	
-        }	
-         if (!$this->active) {	
-            return;	
-        }	
-         if (!$this->checkCurrency($params['cart'])) {	
-            return;	
-        }	
-         $this->smarty->assign(array(	
-            'this_path'     => $this->_path,	
-            'this_path_bw'  => $this->_path,	
-            'this_path_ssl' => Tools::getShopDomainSsl(true, true) . __PS_BASE_URI__ . 'modules/' . $this->name . '/',	
-        ));	
-         return $this->display(__FILE__, 'payment.tpl');	
-    }
-
     public function hookDisplayOrderConfirmation($params)
     {
-        if (_PS_VERSION_ <= 1.7) {
-            return;
-        }
-
         if (!$this->active) {
             return;
         }
@@ -325,12 +295,9 @@ class Coingate extends PaymentModule
         if (!$this->active) {
             return;
         }
-        if (_PS_VERSION_ < 1.7) {
-            $order = $params['objOrder'];
-            $state = $order->current_state;
-        } else {
-            $state = $params['order']->getCurrentState();
-        }
+
+        $state = $params['order']->getCurrentState();
+
         $this->smarty->assign(array(
             'state' => $state,
             'paid_state' => (int)Configuration::get('PS_OS_PAYMENT'),
@@ -402,32 +369,32 @@ class Coingate extends PaymentModule
                         'name' => 'COINGATE_RECEIVE_CURRENCY',
                         'desc' => $this->l(
                             '
-                                                Choose the currency in which you would like to receive payouts.
-                                                For real-time EUR or USD settlements,
-                                                you must verify as a merchant on CoinGate.'
+                            Choose the currency in which you would like to receive payouts.
+                            For real-time EUR or USD settlements,
+                            you must verify as a merchant on CoinGate.'
                         ),
                         'required' => true,
                         'options' => array(
                             'query' => array(
                                 array(
                                     'id_option' => 'btc',
-                                    'name'      => 'Bitcoin (฿)',
+                                    'name' => 'Bitcoin (฿)',
                                 ),
                                 array(
                                     'id_option' => 'usdt',
-                                    'name'      => 'USDT',
+                                    'name' => 'USDT',
                                 ),
                                 array(
                                     'id_option' => 'eur',
-                                    'name'      => 'Euros (€)',
+                                    'name' => 'Euros (€)',
                                 ),
                                 array(
                                     'id_option' => 'usd',
-                                    'name'      => 'US Dollars ($)',
+                                    'name' => 'US Dollars ($)',
                                 ),
                                 array(
                                     'id_option' => 'DO_NOT_CONVERT',
-                                    'name'      => 'Do not convert',
+                                    'name' => 'Do not convert',
                                 ),
                             ),
                             'id' => 'id_option',
