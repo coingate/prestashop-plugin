@@ -33,7 +33,7 @@ require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php');
 class CoingateCallbackModuleFrontController extends ModuleFrontController
 {
     public $ssl = true;
-    public $version = '1.5.0';
+    public $version = '1.5.1';
 
     public function postProcess()
     {
@@ -68,7 +68,7 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
             $environment = (Configuration::get('COINGATE_TEST')) == 1 ? true : false;
 
             $client = new \CoinGate\Client($auth_token, $environment);
-            \CoinGate\Client::setAppInfo("PrestashopMarketplace", $this->version);
+            \CoinGate\Client::setAppInfo("PrestashopGitHub", $this->version);
             $cgOrder = $client->order->get(Tools::getValue('id'));
 
             if (!$cgOrder) {

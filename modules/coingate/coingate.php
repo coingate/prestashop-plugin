@@ -47,7 +47,7 @@ class Coingate extends PaymentModule
     {
         $this->name = 'coingate';
         $this->tab = 'payments_gateways';
-        $this->version = '1.5.0';
+        $this->version = '1.5.1';
         $this->author = 'CoinGate.com';
         $this->is_eu_compatible = 1;
         $this->controllers = array('payment', 'redirect', 'callback', 'cancel');
@@ -211,11 +211,11 @@ class Coingate extends PaymentModule
             if (empty($this->postErrors)) {
                 $auth_token = $this->stripString(Tools::getValue('COINGATE_API_AUTH_TOKEN'));
                 $environment = (Configuration::get('COINGATE_TEST')) == 1 ? true : false;
-                \CoinGate\Client::setAppInfo("PrestashopMarketplace", $this->version);
+                \CoinGate\Client::setAppInfo("PrestashopGitHub", $this->version);
                 $test = \CoinGate\Client::testConnection($auth_token, $environment);
 
                 if ($test !== true) {
-                    $this->postErrors[] = $this->l('API connection not work');
+                    $this->postErrors[] = $this->l('Invalid API token');
                 }
             }
         }
