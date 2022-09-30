@@ -78,11 +78,15 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             'callback_url' => $this->context->link->getModuleLink('coingate', 'callback'),
             'cancel_url' => $this->context->link->getModuleLink('coingate', 'cancel'),
             'success_url' => $success_url,
-            'purchaser_email' => $customer->email,
             'title' => Configuration::get('PS_SHOP_NAME') . ' Order #' . $cart->id,
             'description' => join(', ', $description),
             'token' => $this->generateToken($cart->id),
         ];
+
+        $email_data_pass = (Configuration::get('COINGATE_CLIENT_EMAIL_DATA')) == 1 ? true : false;
+        if($email_data_pass){
+            $params['purchaser_email'] = $customer->email;
+        }
 
         try {
             $order = $client->order->create($params);
