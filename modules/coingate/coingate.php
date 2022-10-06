@@ -64,6 +64,7 @@ class Coingate extends PaymentModule
                 'COINGATE_API_AUTH_TOKEN',
                 'COINGATE_RECEIVE_CURRENCY',
                 'COINGATE_TEST',
+                'COINGATE_CLIENT_EMAIL_DATA',
             )
         );
 
@@ -190,6 +191,7 @@ class Coingate extends PaymentModule
             Configuration::deleteByName('COINGATE_API_AUTH_TOKEN') &&
             Configuration::deleteByName('COINGATE_RECEIVE_CURRENCY') &&
             Configuration::deleteByName('COINGATE_TEST') &&
+            Configuration::deleteByName('COINGATE_CLIENT_EMAIL_DATA') &&
             $order_state_pending->delete() &&
             $order_state_expired->delete() &&
             $order_state_confirming->delete() &&
@@ -230,6 +232,7 @@ class Coingate extends PaymentModule
             );
             Configuration::updateValue('COINGATE_RECEIVE_CURRENCY', Tools::getValue('COINGATE_RECEIVE_CURRENCY'));
             Configuration::updateValue('COINGATE_TEST', Tools::getValue('COINGATE_TEST'));
+            Configuration::updateValue('COINGATE_CLIENT_EMAIL_DATA', Tools::getValue('COINGATE_CLIENT_EMAIL_DATA'));
         }
 
         $this->html .= $this->displayConfirmation($this->l('Settings updated'));
@@ -427,6 +430,31 @@ class Coingate extends PaymentModule
                             'name' => 'name',
                         ),
                     ),
+                    array(
+                        'type' => 'select',
+                        'label' => $this->l('Pre-fill Coingate invoice email'),
+                        'name' => 'COINGATE_CLIENT_EMAIL_DATA',
+                        'desc' => $this->l(
+                            "
+                                                Whwn this feature is enabled, customer email will be passed to CoinGate's checkout form automatically.
+                                                Email will be used to contact customers by the CoinGate team if any payment issues occur."
+                        ),
+                        'required' => true,
+                        'options' => array(
+                            'query' => array(
+                                array(
+                                    'id_option' => 0,
+                                    'name' => 'Off',
+                                ),
+                                array(
+                                    'id_option' => 1,
+                                    'name' => 'On',
+                                ),
+                            ),
+                            'id' => 'id_option',
+                            'name' => 'name',
+                        ),
+                    ),
                 ),
                 'submit' => array(
                     'title' => $this->l('Save'),
@@ -474,6 +502,10 @@ class Coingate extends PaymentModule
             'COINGATE_TEST' => Tools::getValue(
                 'COINGATE_TEST',
                 Configuration::get('COINGATE_TEST')
+            ),
+            'COINGATE_CLIENT_EMAIL_DATA' => Tools::getValue(
+                'COINGATE_CLIENT_EMAIL_DATA',
+                Configuration::get('COINGATE_CLIENT_EMAIL_DATA')
             ),
         );
     }
