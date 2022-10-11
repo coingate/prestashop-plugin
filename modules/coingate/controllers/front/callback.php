@@ -33,7 +33,7 @@ require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php');
 class CoingateCallbackModuleFrontController extends ModuleFrontController
 {
     public $ssl = true;
-    public $version = '1.5.1';
+    public $version = '1.5.2';
 
     public function postProcess()
     {
