@@ -1,52 +1,99 @@
 # PrestaShop CoinGate Plugin
 
-Accept cryptocurrency payments in your PrestaShop store with [CoinGate](https://coingate.com/) - our fully automated payment processing and invoice system makes it easy, convenient, and risk-free for you and your customers.
+Accept cryptocurrency payments in your PrestaShop store with [CoinGate](https://coingate.com/) - a fully automated payment processing and invoicing solution for online stores to make cryptocurrency payments easy, convenient, and risk-free for you and your customers.
 
-With a simple installation of the CoinGate PrestaShop extension in your store's checkout, customers can pay for your goods and services with cryptocurrencies like Bitcoin, Litecoin, Ethereum, Bitcoin Cash, and XRP, among 50+ other altcoins.
+Once installed, a new payment method appears in your PrestaShop store's checkout, allowing customers to pay with Bitcoin (+ Lightning⚡), Litecoin, Ethereum, Dogecoin, XRP, and 70+ other cryptocurrencies and tokens.
 
-With CoinGate’s PrestaShop plugin, merchants can also receive real-time settlements of cryptocurrencies in Euros - payouts are made directly to your bank account. This way, businesses are not exposed to price volatility risk and can enjoy fixed payouts no matter the cryptocurrency’s price.
+**Price your merchandise in any national currency** – CoinGate sources real-time exchange rates and accurately reflects them during a customer's payment cycle.
 
-Alternatively, store owners can choose to receive payouts in cryptocurrency as well.
+Users of this module also have access to additional features like order data tracking, an in-built refund system, invoice customization, permission-based account management, API access, and custom payouts.
+
+Want to take the 'hands-off' approach? Set up recurring payouts of your proceeds in a single fiat currency, such as EUR, USD and GBP, directly into a bank account. This way, businesses protect themselves from price volatility risks and enjoy fixed payouts no matter how much cryptocurrencies go up or down in value.
+
+Sign up for a [CoinGate business account](https://dashboard.coingate.com/register) to get started! The plugin is [free to download](https://github.com/coingate/prestashop-plugin/releases) and set up.
+
+
+### CoinGate charges merchants a flat payment processing service fee of 1%.
 
 **Plugin is compatible with Prestashop 1.7 or greater version**
 
 ### Features:
-* The gateway is fully automatic – set it and forget it.
-* Receive automatic payment confirmations and order status updates.
-* Set your prices in any local fiat currency, and the payment amount in cryptocurrency will be calculated using real-time exchange rates.
-* [Customize the invoice](https://blog.coingate.com/2019/03/how-to-customize-merchants-invoice-guide/) – disable/enable cryptocurrencies, change their position on the invoice, and more.
-* Select the [settlement currencies and payout options](https://blog.coingate.com/2019/08/payouts-fiat-settlements/) for each crypto-asset;
-* Use a [sandbox environment](https://sandbox.coingate.com) for testing with Testnet Bitcoin.
-* No recurring fees.
-* No chargebacks – guaranteed!
+* A simple, one-time setup with little-to-no maintenance needed;
+* Instant payment confirmations and order status updates;
+* Pricing of merchandise in any local fiat currency;
+* Issuing full and partial refunds manually and automatically;
+* Permission-based account management tools;
+* Bitcoin Lightning Network support;
+* Payouts in stablecoins, BTC, other cryptos, or fiat currencies (EUR/GBP/USD);
+* Mitigation of cryptocurrency market volatility;
+* [Sandbox environment](https://sandbox.coingate.com)  for testing the gateway’s functionality.
 
 ### Functionality:
 * [Extend invoice expiration time](https://blog.coingate.com/2017/09/bitcoin-merchant-extend-invoice-expiration-time/) up to 24 hours (if payouts are in BTC).
 * Accept slight underpayments automatically.
 * Refunds can be issued directly from the invoice and without the involvement of the seller.
+* Change the [invoice](https://blog.coingate.com/2019/03/how-to-customize-merchants-invoice-guide/) settings: disable/enable coins, switch positioning, settlements, & more;
+* Manage [payout options](https://blog.coingate.com/2019/08/payouts-fiat-settlements/) for each accepted cryptocurrency.
 
-### How it works - an example:
-1. An item in the store costs 100 euro.
+###  Reasons to accept cryptocurrency payments
+* Collect payments instantly from anywhere in the world;
+* Get rid of multiple unnecessary middle-men;
+* Gather and share fewer data about your customers;
+* No more fraudulent chargebacks on purchases;
+* Get the attention of more customers;
+* Gain a competitive advantage in your respective industry.
+
+
+### How it work?
+1. An item in the store costs 100 EUR.
 2. A customer wants to buy the item and selects to pay with Bitcoin.
-3. An invoice is generated and, according to the current exchange rate, the price is 10000 euro per bitcoin, so the customer has to pay 0.01 bitcoins.
-4. Once the invoice is paid, the merchant receives 99 euro (100 euro minus our 1% flat fee), or 0.0099 BTC.
+3. An invoice is generated and, according to the current exchange rate, the price is 10,000 EUR per BTC, so the customer pays 0.01 BTC.
+4. Once the invoice is paid, the merchant receives 99 EUR (100 EUR minus a 1% flat fee), or 0.0099 BTC.
 
-## Install
+### Testing
 
-Sign up for CoinGate account at <https://coingate.com> for production and <https://sandbox.coingate.com> for testing (sandbox) environment.
+Sign up for a [CoinGate Sandbox account](https://sandbox.coingate.com) to access the testing environment.
 
-Please note, that for "Test" mode you **must** generate separate API credentials on <https://sandbox.coingate.com>. API credentials generated on <https://coingate.com> will **not** work for "Test" mode.
+Please note that for "Test" mode, you must generate separate API credentials on [https://sandbox.coingate.com](https://sandbox.coingate.com). API credentials generated from a regular CoinGate business account will not work in a testing environment.
 
-Also note, that *Receive Currency* parameter in your module configuration window defines the currency of your settlements from CoinGate. Set it to BTC, EUR or USD, depending on how you wish to receive payouts. To receive settlements in **Euros** or **U.S. Dollars** to your bank, you have to verify as a merchant on CoinGate (login to your CoinGate account and click *Verification*). If you set your receive currency to **Bitcoin**, verification is not needed.
+## CoinGate module installation guide via PrestaShop FTP Uploade
 
-### via PrestaShop FTP Uploader
+### 1. Create a CoinGate business account
 
-1. Download <https://github.com/coingate/prestashop-plugin/releases/download/v1.5.2/CoinGate_Prestashop-1.5.2.zip>
+This module requires you to have a verified CoinGate business account. [Start here.](https://coingate.com/register)
 
-2. Go to your PrestaShop admin panel » **Modules** » **Module Manager**.
+### 2. Download the module
+The PrestaShop module can be downloaded from [here](https://github.com/coingate/prestashop-plugin/releases).
 
-3. Click **Upload a module**, then click **Select file**, find the file you just downloaded, select it and click **Open**.
+### 3. Create the API Auth Token on your CoinGate business account
 
-4. When the installation is completed, click **Configure**.
+Generate the API credentials (API Auth Token) when logged into the CoinGate account **(Merchant > API > Apps > +New App)**.
 
-4. In the **Configure Setting** tab of the Coingate Module enter your [API credentials](https://support.coingate.com/en/42/how-can-i-create-coingate-api-credentials) (*Auth Token*). Configure **Receive Currency** and **Test Mode** settings and click **Save**.
+![Screenshot](./images/new-app.png)
+
+### 4. Install the module from your PrestaShop dashboard
+
+Go to your PrestaShop admin panel, navigate to **Modules > Module Manager**, and click the **‘Upload the Module’** button.
+
+![Screenshot](./images/prestashop1.png)
+
+Drag the downloaded file to upload, or click **‘select file’**, find the downloaded file, and click **‘Open’**. The installation process will begin.
+
+![Screenshot](./images/prestashop2.png)
+
+
+### 5. Configure API settings
+Once the module has finished installing, click the **‘Configure’** button that pops up right after.
+
+![Screenshot](./images/prestashop3.png)
+
+Then, navigate to the module’s settings page (**Modules > CoinGate > Configure**) and click the **‘Configure Settings’** button. 
+
+![Screenshot](./images/prestashop4.png)
+
+Enter your API credentials (or Auth Token) generated on your CoinGate business account. 
+
+Lastly, set the **‘Payout Currency’** parameter to whatever currency, cryptocurrency or fiat, you wish to receive when payouts come in.
+
+### 6. Add payout address
+You must indicate a bank account or wallet address to receive payouts. Log into your CoinGate account, navigate to **Account Settings > Payout Settings** and add the payout address of a currency you set as **‘Payout Currency’** in step #4.
