@@ -67,8 +67,6 @@
             <li>{l s='No chargebacks - guaranteed!' mod='coingate'}</li>
         </ul>
         </p>
-
-        <p><i>{l s='Questions? Contact support@coingate.com !' mod='coingate'}</i></p>
     </div>
 </div>
 
