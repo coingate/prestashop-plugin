@@ -29,11 +29,10 @@ Sign up for a [CoinGate business account](https://dashboard.coingate.com/registe
 * [Sandbox environment](https://sandbox.coingate.com)  for testing the gateway’s functionality.
 
 ### Functionality:
-* [Extend invoice expiration time](https://blog.coingate.com/2017/09/bitcoin-merchant-extend-invoice-expiration-time/) up to 24 hours (if payouts are in BTC).
 * Accept slight underpayments automatically.
 * Refunds can be issued directly from the invoice and without the involvement of the seller.
-* Change the [invoice](https://blog.coingate.com/2019/03/how-to-customize-merchants-invoice-guide/) settings: disable/enable coins, switch positioning, settlements, & more;
-* Manage [payout options](https://blog.coingate.com/2019/08/payouts-fiat-settlements/) for each accepted cryptocurrency.
+* Change the [invoice](https://coingate.com/blog/post/how-to-customize-merchants-invoice-guide) settings: disable/enable coins, switch positioning, settlements, & more;
+* Manage [payout options](https://coingate.com/blog/post/payouts-fiat-settlements) for each accepted cryptocurrency.
 
 ###  Reasons to accept cryptocurrency payments
 * Collect payments instantly from anywhere in the world;
