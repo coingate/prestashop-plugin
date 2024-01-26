@@ -15,7 +15,7 @@ Sign up for a [CoinGate business account](https://dashboard.coingate.com/registe
 
 ### CoinGate charges merchants a flat payment processing service fee of 1%.
 
-**Plugin is compatible with Prestashop 1.7 or greater version**
+**Plugin is compatible with PrestaShop 1.7+ or PrestaShop 8+ versions**
 
 ### Features:
 * A simple, one-time setup with little-to-no maintenance needed;

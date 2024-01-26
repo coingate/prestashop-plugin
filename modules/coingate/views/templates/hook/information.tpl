@@ -48,9 +48,8 @@
                 </a> {l s='for assistance' mod='coingate'}</li>
         </ul>
         </p>
-        <img src="../modules/coingate/views/img/currencies.png" style="float:right;"/>
         <p class="sign-up"><br/>
-            <a href="https://coingate.com/sign_up" class="sign-up-button">{l s='Sign up on CoinGate' mod='coingate'}</a>
+            <a href="https://dashboard.coingate.com/register" target="_blank" class="sign-up-button">{l s='Sign up on CoinGate' mod='coingate'}</a>
         </p><br/>
         <strong>{l s='Features' mod='coingate'}</strong>
         <p>
