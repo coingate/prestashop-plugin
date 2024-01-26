@@ -27,13 +27,16 @@
  * @copyright 2015-2016 CoinGate
  * @license   https://github.com/coingate/prestashop-plugin/blob/master/LICENSE  The MIT License (MIT)
  */
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
-require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php');
+require_once _PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php';
 
 class CoingateRedirectModuleFrontController extends ModuleFrontController
 {
     public $ssl = true;
-    public $version = '1.5.2';
+    public $version = '1.5.3';
 
     public function initContent()
     {
@@ -45,12 +48,12 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             Tools::redirect('index.php?controller=order');
         }
 
-        $total = (float)number_format($cart->getOrderTotal(true, 3), 2, '.', '');
+        $total = (float) number_format($cart->getOrderTotal(true, 3), 2, '.', '');
         $currency = Context::getContext()->currency;
 
         $token = $this->generateToken($cart->id);
 
-        $description = array();
+        $description = [];
         foreach ($cart->getProducts() as $product) {
             $description[] = $product['cart_quantity'] . ' × ' . $product['name'];
         }
@@ -58,18 +61,18 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
         $customer = new Customer($cart->id_customer);
 
         $link = new Link();
-        $success_url = $link->getPageLink('order-confirmation', null, null, array(
+        $success_url = $link->getPageLink('order-confirmation', null, null, [
             'id_cart' => $cart->id,
             'id_module' => $this->module->id,
-            'key' => $customer->secure_key
-        ));
+            'key' => $customer->secure_key,
+        ]);
 
         $auth_token = Configuration::get('COINGATE_API_AUTH_TOKEN');
         $auth_token = empty($auth_token) ? Configuration::get('COINGATE_API_SECRET') : $auth_token;
-        $environment = (Configuration::get('COINGATE_TEST')) == 1 ? true : false;
+        $environment = Configuration::get('COINGATE_TEST') == 1 ? true : false;
 
         $client = new \CoinGate\Client($auth_token, $environment);
-        \CoinGate\Client::setAppInfo("PrestashopGitHub", $this->version);
+        \CoinGate\Client::setAppInfo('PrestashopGitHub', $this->version);
         $params = [
             'order_id' => $cart->id,
             'price_amount' => $total,
@@ -83,15 +86,14 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             'token' => $this->generateToken($cart->id),
         ];
 
-        $email_data_pass = (Configuration::get('COINGATE_CLIENT_EMAIL_DATA')) == 1 ? true : false;
-        if($email_data_pass){
+        $email_data_pass = Configuration::get('COINGATE_CLIENT_EMAIL_DATA') == 1 ? true : false;
+        if ($email_data_pass) {
             $params['purchaser_email'] = $customer->email;
         }
 
         try {
             $order = $client->order->create($params);
         } catch (\CoinGate\Exception\ApiErrorException $e) {
-
         }
 
         if ($order) {
@@ -106,7 +108,7 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
                 $this->module->displayName,
                 null,
                 null,
-                (int)$currency->id,
+                (int) $currency->id,
                 false,
                 $customer->secure_key
             );
@@ -119,9 +121,6 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
 
     private function generateToken($order_id)
     {
-        return hash('sha256', $order_id . (empty(Configuration::get('COINGATE_API_AUTH_TOKEN')) ?
-                Configuration::get('API_SECRET') :
-                Configuration::get('COINGATE_API_AUTH_TOKEN')
-            ));
+        return hash('sha256', $order_id . (empty(Configuration::get('COINGATE_API_AUTH_TOKEN')) ? Configuration::get('API_SECRET') : Configuration::get('COINGATE_API_AUTH_TOKEN')));
     }
 }

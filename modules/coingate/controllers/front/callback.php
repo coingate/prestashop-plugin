@@ -27,17 +27,20 @@
  * @copyright 2015-2016 CoinGate
  * @license   https://github.com/coingate/prestashop-plugin/blob/master/LICENSE  The MIT License (MIT)
  */
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
-require_once(_PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php');
+require_once _PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php';
 
 class CoingateCallbackModuleFrontController extends ModuleFrontController
 {
     public $ssl = true;
-    public $version = '1.5.2';
+    public $version = '1.5.3';
 
     public function postProcess()
     {
-        $cart_id = (int)Tools::getValue('order_id');
+        $cart_id = (int) Tools::getValue('order_id');
         $order_id = Order::getOrderByCartId($cart_id);
         $order = new Order($order_id);
         $currency = Context::getContext()->currency;
@@ -65,10 +68,10 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
 
             $auth_token = Configuration::get('COINGATE_API_AUTH_TOKEN');
             $auth_token = empty($auth_token) ? Configuration::get('COINGATE_API_SECRET') : $auth_token;
-            $environment = (Configuration::get('COINGATE_TEST')) == 1 ? true : false;
+            $environment = Configuration::get('COINGATE_TEST') == 1 ? true : false;
 
             $client = new \CoinGate\Client($auth_token, $environment);
-            \CoinGate\Client::setAppInfo("PrestashopGitHub", $this->version);
+            \CoinGate\Client::setAppInfo('PrestashopGitHub', $this->version);
             $cgOrder = $client->order->get(Tools::getValue('id'));
 
             if (!$cgOrder) {
@@ -85,10 +88,9 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 throw new Exception($error_message);
             }
 
-
             switch ($cgOrder->status) {
                 case 'paid':
-                    if (((float)$order->getOrdersTotalPaid()) == ((float)$cgOrder->price_amount)) {
+                    if (((float) $order->getOrdersTotalPaid()) == ((float) $cgOrder->price_amount)) {
                         $order_status = 'PS_OS_PAYMENT';
                         $this->module->validateOrder(
                             $cart_id,
@@ -97,7 +99,7 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                             $this->module->displayName,
                             null,
                             null,
-                            (int)$currency->id,
+                            (int) $currency->id,
                             false,
                             $customer->secure_key
                         );
@@ -131,23 +133,23 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
             if ($order_status !== false) {
                 $history = new OrderHistory();
                 $history->id_order = $order->id;
-                $history->changeIdOrderState((int)Configuration::get($order_status), $order->id);
-                $history->addWithemail(true, array(
+                $history->changeIdOrderState((int) Configuration::get($order_status), $order->id);
+                $history->addWithemail(true, [
                     'order_name' => Tools::getValue('order_id'),
-                ));
+                ]);
 
-                $this->context->smarty->assign(array(
-                    'text' => 'OK'
-                ));
+                $this->context->smarty->assign([
+                    'text' => 'OK',
+                ]);
             } else {
-                $this->context->smarty->assign(array(
-                    'text' => 'Order Status ' . $cgOrder->status . ' not implemented'
-                ));
+                $this->context->smarty->assign([
+                    'text' => 'Order Status ' . $cgOrder->status . ' not implemented',
+                ]);
             }
         } catch (Exception $e) {
-            $this->context->smarty->assign(array(
-                'text' => get_class($e) . ': ' . $e->getMessage()
-            ));
+            $this->context->smarty->assign([
+                'text' => get_class($e) . ': ' . $e->getMessage(),
+            ]);
         }
 
         $this->setTemplate('module:coingate/views/templates/front/payment_callback.tpl');
@@ -158,7 +160,7 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
         return hash('sha256', $order_id . (empty(Configuration::get('COINGATE_API_AUTH_TOKEN')) ?
                 Configuration::get('API_SECRET') :
                 Configuration::get('COINGATE_API_AUTH_TOKEN')
-            ));
+        ));
     }
 
     private function logError($message, $cart_id)
