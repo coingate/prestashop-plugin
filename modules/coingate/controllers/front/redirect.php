@@ -36,7 +36,7 @@ require_once _PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php';
 class CoingateRedirectModuleFrontController extends ModuleFrontController
 {
     public $ssl = true;
-    public $version = '1.5.3';
+    public $version = '2.0.0';
 
     public function initContent()
     {
