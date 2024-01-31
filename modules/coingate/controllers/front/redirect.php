@@ -72,7 +72,7 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
         $environment = Configuration::get('COINGATE_TEST') == 1 ? true : false;
 
         $client = new \CoinGate\Client($auth_token, $environment);
-        \CoinGate\Client::setAppInfo('PrestashopGitHub', $this->version);
+        \CoinGate\Client::setAppInfo('PrestaShop v' . _PS_VERSION_, $this->version);
         $params = [
             'order_id' => $cart->id,
             'price_amount' => $total,
