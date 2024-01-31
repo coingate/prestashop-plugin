@@ -5,6 +5,10 @@ namespace CoinGate\Exception;
 use Exception;
 use Throwable;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class ApiErrorException extends Exception
 {
     /**

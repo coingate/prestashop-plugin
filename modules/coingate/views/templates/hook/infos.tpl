@@ -16,9 +16,4 @@
 * @copyright Since 2007 PrestaShop SA and Contributors
 * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
 *}
-<div class="alert alert-info">
-    <p>
-        <strong>{l s='Having trouble? ' mod='coingate'}</strong>{l s='Contact ' mod='coingate'}<a href="mailto:support@coingate.com">{l s='support@coingate.com' mod='coingate'}</a>.
-        <a href="https://developer.coingate.com/docs/issues" target="_blank">{l s='View common issues' mod='coingate'}</a>.
-    </p>
-</div>
+
