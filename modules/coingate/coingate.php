@@ -307,7 +307,7 @@ class Coingate extends PaymentModule
         }
 
         $newOption = new PrestaShop\PrestaShop\Core\Payment\PaymentOption();
-        $newOption->setCallToActionText('Bitcoin, Ethereum, Litecoin or other')
+        $newOption->setCallToActionText('Bitcoin, Ethereum, Litecoin, USDT or other cryptocurrency')
             ->setAction($this->context->link->getModuleLink($this->name, 'redirect', [], true))
             ->setAdditionalInformation(
                 $this->context->smarty->fetch('module:coingate/views/templates/hook/coingate_intro.tpl')
