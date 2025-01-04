@@ -21,8 +21,8 @@
         <p class="payment_module">
             <a class="cheque" style="background-image: url('{$this_path|escape:'htmlall':'UTF-8'}views/img/bitcoin-logo.png'); padding-left:150px;  background-size: 100px; background-position: 20px; 50%; background-repeat: no-repeat;" href="{$link->getModuleLink('coingate', 'payment')|escape:'htmlall':'UTF-8'}">
 
-                {l s='Bitcoin, Ethereum, Litecoin, USDT or other cryptocurrency (via CoinGate)' mod='coingate'}
-                <br><span>({l s='order processing will be faster' mod='coingate'})</span>
+                {l s='Bitcoin, Ethereum, Litecoin, USDT or other cryptocurrency (via CoinGate)' d='Modules.Coingate.Shop'}
+                <br><span>({l s='order processing will be faster' d='Modules.Coingate.Shop'})</span>
             </a>
         </p>
     </div>

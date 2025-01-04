@@ -36,7 +36,7 @@ require_once _PS_MODULE_DIR_ . '/coingate/vendor/coingate-php/init.php';
 class CoingateRedirectModuleFrontController extends ModuleFrontController
 {
     public $ssl = true;
-    public $version = '2.0.0';
+    public $version = '2.1.0';
 
     public function initContent()
     {
@@ -77,7 +77,6 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             'order_id' => $cart->id,
             'price_amount' => $total,
             'price_currency' => $currency->iso_code,
-            'receive_currency' => Configuration::get('COINGATE_RECEIVE_CURRENCY'),
             'callback_url' => $this->context->link->getModuleLink('coingate', 'callback'),
             'cancel_url' => $this->context->link->getModuleLink('coingate', 'cancel'),
             'success_url' => $success_url,

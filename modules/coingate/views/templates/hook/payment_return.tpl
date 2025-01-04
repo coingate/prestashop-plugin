@@ -17,13 +17,13 @@
 * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
 *}
 {if $state == $paid_state}
-    <p>{l s='Your order on %s is complete.' mod='coingate'}
-        <br/><br/> <strong>{l s='Your order will be sent as soon as your payment is confirmed.' mod='coingate'}</strong>
-        <br/><br/>{l s='If you have questions, comments or concerns, please contact our' mod='coingate'} <a href="{$link->getPageLink('contact', true)|escape:'html':'UTF-8'}">{l s='customer support team. ' mod='coingate'}</a>
+    <p>{l s='Your order on %s is complete.' sprintf=[$shop_name] d='Modules.Coingate.Shop'}
+        <br/><br/> <strong>{l s='Your order will be sent as soon as your payment is confirmed.' d='Modules.Coingate.Shop'}</strong>
+        <br/><br/>{l s='If you have questions, comments or concerns, please contact our' d='Modules.Coingate.Shop'} <a href="{$link->getPageLink('contact', true)|escape:'html':'UTF-8'}">{l s='customer support team. ' d='Modules.Coingate.Shop'}</a>
     </p>
 {else}
     <p class="warning">
-        {l s='We noticed a problem with your order. If you think this is an error, feel free to contact our' mod='coingate'}
-        <a href="{$link->getPageLink('contact', true)|escape:'html':'UTF-8'}">{l s='customer support team. ' mod='coingate'}</a>.
+        {l s='We noticed a problem with your order. If you think this is an error, feel free to contact our' d='Modules.Coingate.Shop'}
+        <a href="{$link->getPageLink('contact', true)|escape:'html':'UTF-8'}">{l s='customer support team. ' d='Modules.Coingate.Shop'}</a>.
     </p>
 {/if}
