@@ -90,6 +90,14 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             $params['purchaser_email'] = $customer->email;
         }
 
+        $transfer_shopper_details = Configuration::get('COINGATE_TRANSFER_SHOPPER_DETAILS') == 1 ? true : false;
+        if ($transfer_shopper_details) {
+            $shopper_info = $this->getShopperInfo($customer, $cart);
+            if (!empty($shopper_info)) {
+                $params['shopper'] = $shopper_info;
+            }
+        }
+
         try {
             $order = $client->order->create($params);
         } catch (\CoinGate\Exception\ApiErrorException $e) {
@@ -121,5 +129,51 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
     private function generateToken($order_id)
     {
         return hash('sha256', $order_id . (empty(Configuration::get('COINGATE_API_AUTH_TOKEN')) ? Configuration::get('API_SECRET') : Configuration::get('COINGATE_API_AUTH_TOKEN')));
+    }
+
+    /**
+     * @param Customer $customer
+     * @param Cart $cart
+     *
+     * @return array
+     */
+    private function getShopperInfo($customer, $cart): array
+    {
+        $billingAddress = new Address($cart->id_address_invoice);
+        $country = new Country($billingAddress->id_country);
+
+        $isBusiness = !empty($billingAddress->company) || !empty($billingAddress->vat_number);
+
+        $shopper = [
+            'type' => $isBusiness ? 'business' : 'personal',
+            'ip_address' => Tools::getRemoteAddr(),
+            'email' => $customer->email,
+            'first_name' => $customer->firstname,
+            'last_name' => $customer->lastname,
+        ];
+
+        // Add date of birth if available
+        if (!empty($customer->birthday) && $customer->birthday !== '0000-00-00') {
+            $shopper['date_of_birth'] = $customer->birthday;
+        }
+
+        if ($isBusiness) {
+            $shopper['company_details'] = [
+                'name' => $billingAddress->company,
+                'address' => $billingAddress->address1,
+                'postal_code' => $billingAddress->postcode,
+                'city' => $billingAddress->city,
+                'country' => $country->iso_code,
+            ];
+        } else {
+            $shopper['residence_address'] = $billingAddress->address1;
+            $shopper['residence_postal_code'] = $billingAddress->postcode;
+            $shopper['residence_city'] = $billingAddress->city;
+            $shopper['residence_country'] = $country->iso_code;
+        }
+
+        return array_filter($shopper, function($value) {
+            return $value !== null && $value !== '';
+        });
     }
 }

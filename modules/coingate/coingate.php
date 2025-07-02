@@ -39,7 +39,6 @@ class Coingate extends PaymentModule
     private $postErrors = [];
 
     public $api_auth_token;
-    public $receive_currency;
     public $test;
 
     public function __construct()
@@ -83,8 +82,7 @@ class Coingate extends PaymentModule
         $this->description = $this->trans('Accept Bitcoin and other cryptocurrencies as a payment method with CoinGate', [], 'Modules.Coingate.Admin');
         $this->confirmUninstall = $this->trans('Are you sure you want to delete your details?', [], 'Modules.Coingate.Admin');
 
-        if (!isset($this->api_auth_token)
-            || !isset($this->receive_currency)) {
+        if (!isset($this->api_auth_token)) {
             $this->warning = $this->trans('API Access details must be configured in order to use this module correctly.', [], 'Modules.Coingate.Admin');
         }
     }
@@ -177,8 +175,10 @@ class Coingate extends PaymentModule
             && Configuration::deleteByName('COINGATE_API_KEY')
             && Configuration::deleteByName('COINGATE_API_SECRET')
             && Configuration::deleteByName('COINGATE_API_AUTH_TOKEN')
+            && Configuration::deleteByName('COINGATE_RECEIVE_CURRENCY')
             && Configuration::deleteByName('COINGATE_TEST')
             && Configuration::deleteByName('COINGATE_CLIENT_EMAIL_DATA')
+            && Configuration::deleteByName('COINGATE_TRANSFER_SHOPPER_DETAILS')
             && $order_state_pending->delete()
             && $order_state_expired->delete()
             && $order_state_confirming->delete()
@@ -214,6 +214,7 @@ class Coingate extends PaymentModule
             );
             Configuration::updateValue('COINGATE_TEST', Tools::getValue('COINGATE_TEST'));
             Configuration::updateValue('COINGATE_CLIENT_EMAIL_DATA', Tools::getValue('COINGATE_CLIENT_EMAIL_DATA'));
+            Configuration::updateValue('COINGATE_TRANSFER_SHOPPER_DETAILS', Tools::getValue('COINGATE_TRANSFER_SHOPPER_DETAILS'));
         }
 
         $this->html .= $this->displayConfirmation($this->trans('Settings updated', [], 'Modules.Coingate.Admin'));
@@ -394,6 +395,31 @@ class Coingate extends PaymentModule
                             'name' => 'name',
                         ],
                     ],
+                    [
+                        'type' => 'select',
+                        'label' => $this->trans('Transfer Shopper Billing Details', [], 'Modules.Coingate.Admin'),
+                        'name' => 'COINGATE_TRANSFER_SHOPPER_DETAILS',
+                        'desc' => $this->trans(
+                            "When enabled, this plugin will collect and securely transfer shopper billing information (e.g. name, address, email) to the configured payment processor during checkout for the purposes of payment processing, fraud prevention, and compliance. Enabling this option also helps enhance the shopper's experience by pre-filling required fields during checkout, making the process faster and smoother.",
+                            [],
+                            'Modules.Coingate.Admin'
+                        ),
+                        'required' => true,
+                        'options' => [
+                            'query' => [
+                                [
+                                    'id_option' => 0,
+                                    'name' => 'Off',
+                                ],
+                                [
+                                    'id_option' => 1,
+                                    'name' => 'On',
+                                ],
+                            ],
+                            'id' => 'id_option',
+                            'name' => 'name',
+                        ],
+                    ],
                 ],
                 'submit' => [
                     'title' => $this->trans('Save', [], 'Admin.Actions'),
@@ -434,10 +460,6 @@ class Coingate extends PaymentModule
                     Configuration::get('COINGATE_API_SECRET') :
                     Configuration::get('COINGATE_API_AUTH_TOKEN')
             )),
-            'COINGATE_RECEIVE_CURRENCY' => Tools::getValue(
-                'COINGATE_RECEIVE_CURRENCY',
-                Configuration::get('COINGATE_RECEIVE_CURRENCY')
-            ),
             'COINGATE_TEST' => Tools::getValue(
                 'COINGATE_TEST',
                 Configuration::get('COINGATE_TEST')
@@ -445,6 +467,10 @@ class Coingate extends PaymentModule
             'COINGATE_CLIENT_EMAIL_DATA' => Tools::getValue(
                 'COINGATE_CLIENT_EMAIL_DATA',
                 Configuration::get('COINGATE_CLIENT_EMAIL_DATA')
+            ),
+            'COINGATE_TRANSFER_SHOPPER_DETAILS' => Tools::getValue(
+                'COINGATE_TRANSFER_SHOPPER_DETAILS',
+                Configuration::get('COINGATE_TRANSFER_SHOPPER_DETAILS')
             ),
         ];
     }
