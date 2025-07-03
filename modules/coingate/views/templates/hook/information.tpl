@@ -24,7 +24,7 @@
 <!-- Tab content -->
 <div id="Information" class="tabcontent">
     <div class="wrapper">
-        <img src="../modules/coingate/views/img/invoice.png" style="float:right; height: 580px; border-radius: 8px; box-shadow: 0 30px 40px rgba(0,0,0,.1)"/>
+        <img src="{$module_dir}views/img/invoice.png" style="float:right; height: 580px; border-radius: 8px; box-shadow: 0 30px 40px rgba(0,0,0,.1)"/>
         <h2 class="coingate-information-header">
             {l s='Accept Bitcoin, Litecoin, Ethereum and other digital currencies on your PrestaShop store with CoinGate'}
         </h2><br/>

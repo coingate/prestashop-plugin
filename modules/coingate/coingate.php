@@ -154,8 +154,6 @@ class Coingate extends PaymentModule
         Configuration::updateValue('COINGATE_INVALID', $order_invalid->id);
 
         if (!parent::install()
-            || !$this->registerHook('payment')
-            || !$this->registerHook('displayPaymentEU')
             || !$this->registerHook('paymentReturn')
             || !$this->registerHook('paymentOptions')) {
             return false;
