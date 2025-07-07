@@ -61,7 +61,6 @@ class Coingate extends PaymentModule
             [
                 'COINGATE_API_AUTH_TOKEN',
                 'COINGATE_TEST',
-                'COINGATE_CLIENT_EMAIL_DATA',
             ]
         );
 
@@ -211,7 +210,6 @@ class Coingate extends PaymentModule
                 $this->stripString(Tools::getValue('COINGATE_API_AUTH_TOKEN'))
             );
             Configuration::updateValue('COINGATE_TEST', Tools::getValue('COINGATE_TEST'));
-            Configuration::updateValue('COINGATE_CLIENT_EMAIL_DATA', Tools::getValue('COINGATE_CLIENT_EMAIL_DATA'));
             Configuration::updateValue('COINGATE_TRANSFER_SHOPPER_DETAILS', Tools::getValue('COINGATE_TRANSFER_SHOPPER_DETAILS'));
         }
 
@@ -348,34 +346,9 @@ class Coingate extends PaymentModule
                         'name' => 'COINGATE_TEST',
                         'desc' =>  $this->trans(
                             '
-                                                To test on sandbox.coingate.com, turn Test Mode “On”.
+                                                To test on sandbox.coingate.com, turn Test Mode "On".
                                                 Please note, for Test Mode you must create a separate account
                                                 on sandbox.coingate.com and generate API credentials there.', [], 'Modules.Coingate.Admin'
-                        ),
-                        'required' => true,
-                        'options' => [
-                            'query' => [
-                                [
-                                    'id_option' => 0,
-                                    'name' => 'Off',
-                                ],
-                                [
-                                    'id_option' => 1,
-                                    'name' => 'On',
-                                ],
-                            ],
-                            'id' => 'id_option',
-                            'name' => 'name',
-                        ],
-                    ],
-                    [
-                        'type' => 'select',
-                        'label' => $this->trans('Pre-fill Coingate invoice email', [], 'Modules.Coingate.Admin'),
-                        'name' => 'COINGATE_CLIENT_EMAIL_DATA',
-                        'desc' => $this->trans(
-                            "
-                                                When this feature is enabled, customer email will be passed to CoinGate's checkout form automatically.
-                                                Email will be used to contact customers by the CoinGate team if any payment issues occur.", [], 'Modules.Coingate.Admin'
                         ),
                         'required' => true,
                         'options' => [
@@ -461,10 +434,6 @@ class Coingate extends PaymentModule
             'COINGATE_TEST' => Tools::getValue(
                 'COINGATE_TEST',
                 Configuration::get('COINGATE_TEST')
-            ),
-            'COINGATE_CLIENT_EMAIL_DATA' => Tools::getValue(
-                'COINGATE_CLIENT_EMAIL_DATA',
-                Configuration::get('COINGATE_CLIENT_EMAIL_DATA')
             ),
             'COINGATE_TRANSFER_SHOPPER_DETAILS' => Tools::getValue(
                 'COINGATE_TRANSFER_SHOPPER_DETAILS',

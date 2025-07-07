@@ -85,11 +85,6 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             'token' => $this->generateToken($cart->id),
         ];
 
-        $email_data_pass = Configuration::get('COINGATE_CLIENT_EMAIL_DATA') == 1 ? true : false;
-        if ($email_data_pass) {
-            $params['purchaser_email'] = $customer->email;
-        }
-
         $transfer_shopper_details = Configuration::get('COINGATE_TRANSFER_SHOPPER_DETAILS') == 1 ? true : false;
         if ($transfer_shopper_details) {
             $shopper_info = $this->getShopperInfo($customer, $cart);
