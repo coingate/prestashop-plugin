@@ -141,7 +141,6 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
 
         $shopper = [
             'type' => $isBusiness ? 'business' : 'personal',
-            'ip_address' => Tools::getRemoteAddr(),
             'email' => $customer->email,
             'first_name' => $customer->firstname,
             'last_name' => $customer->lastname,
