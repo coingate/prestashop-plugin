@@ -166,6 +166,7 @@ class Coingate extends PaymentModule
         $order_state_pending = new OrderState(Configuration::get('COINGATE_PENDING'));
         $order_state_expired = new OrderState(Configuration::get('COINGATE_EXPIRED'));
         $order_state_confirming = new OrderState(Configuration::get('COINGATE_CONFIRMING'));
+        $order_state_invalid = new OrderState(Configuration::get('COINGATE_INVALID'));
 
         return
             Configuration::deleteByName('COINGATE_APP_ID')
@@ -179,6 +180,7 @@ class Coingate extends PaymentModule
             && $order_state_pending->delete()
             && $order_state_expired->delete()
             && $order_state_confirming->delete()
+            && $order_state_invalid->delete()
             && parent::uninstall();
     }
 

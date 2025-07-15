@@ -41,7 +41,7 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
     public function postProcess()
     {
         $cart_id = (int) Tools::getValue('order_id');
-        $order_id = Order::getOrderByCartId($cart_id);
+        $order_id = Order::getIdByCartId($cart_id);
         $order = new Order($order_id);
         $currency = Context::getContext()->currency;
         $cart = $this->context->cart;
@@ -92,17 +92,6 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
                 case 'paid':
                     if (((float) $order->getOrdersTotalPaid()) == ((float) $cgOrder->price_amount)) {
                         $order_status = 'PS_OS_PAYMENT';
-                        $this->module->validateOrder(
-                            $cart_id,
-                            Configuration::get('COINGATE_PENDING'),
-                            $cgOrder->price_amount,
-                            $this->module->displayName,
-                            null,
-                            null,
-                            (int) $currency->id,
-                            false,
-                            $customer->secure_key
-                        );
                     } else {
                         $order_status = 'COINGATE_INVALID';
                         $this->logError('PS Orders Total does not match with Coingate Price Amount', $cart_id);
