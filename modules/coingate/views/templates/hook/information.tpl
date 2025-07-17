@@ -26,11 +26,11 @@
     <div class="wrapper">
         <img src="{$module_dir}views/img/invoice.png" style="float:right; height: 580px; border-radius: 8px; box-shadow: 0 30px 40px rgba(0,0,0,.1)"/>
         <h2 class="coingate-information-header">
-            {l s='Accept Bitcoin, Litecoin, Ethereum and other digital currencies on your PrestaShop store with CoinGate'}
+            {l s='Accept BTC, LTC, ETH, TRX, stablecoins and other cryptocurrencies'}
         </h2><br/>
-        <strong>{l s='What is CoinGate?'}</strong> <br/>
+        <strong>{l s='Description'}</strong> <br/>
         <p>
-            {l s='We offer a fully automated cryptocurrency processing platform and invoice system. Accept 70+ cryptocurrencies and get paid in EUR, USD or GBP directly to your bank account, or just keep bitcoins!' }
+            {l s='The easiest and quickest way to accept Bitcoin, Litecoin, Ethereum, Doge and other cryptocurrencies. Receive payouts in Bitcoin and other cryptocurrencies, Euros or U.S. Dollars without exchange rate volatility risk! Made by CoinGate.com' }
         </p>
         <br/>
         <strong>{l s='Getting started' }</strong><br/>
