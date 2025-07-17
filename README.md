@@ -59,7 +59,7 @@ Please note that for "Test" mode, you must generate separate API credentials on 
 
 ### 1. Create a CoinGate business account
 
-This module requires you to have a verified CoinGate business account. [Start here.](https://coingate.com/register)
+This module requires you to have a verified CoinGate business account. [Start here.](https://dashboard.coingate.com/register)
 
 ### 2. Download the module
 The PrestaShop module can be downloaded from [here](https://github.com/coingate/prestashop-plugin/releases).

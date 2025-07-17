@@ -18,7 +18,7 @@
 *}
 <section>
     <p>
-        {l s='Cryptocurrency payments are processed by CoinGate.com - over 50 tokens supported.' d='coingate' mod='coingate'}
+        {l s='Cryptocurrency payments are processed by CoinGate.com - over 50 tokens supported.' d='Modules.Coingate.Shop'}
     </p>
     <div class="modal fade" id="bankwire-modal" tabindex="-1" role="dialog" aria-labelledby="Bankwire information" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -27,7 +27,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h2>{l s='Bitcoin, Ethereum, Litecoin, USDT or other cryptocurrency (via CoinGate)' mod='coingate'}</h2>
+                    <h2>{l s='Bitcoin, Ethereum, Litecoin, USDT or other cryptocurrency' d='Modules.Coingate.Shop'}</h2>
                 </div>
                 <div class="modal-body">
                 </div>
