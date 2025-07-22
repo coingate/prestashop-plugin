@@ -43,12 +43,9 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
         $cart_id = (int) Tools::getValue('order_id');
         $order_id = Order::getIdByCartId($cart_id);
         $order = new Order($order_id);
-        $currency = Context::getContext()->currency;
-        $cart = $this->context->cart;
-        $customer = new Customer($cart->id_customer);
 
         try {
-            if (!$order) {
+            if (!Validate::isLoadedObject($order)) {
                 $error_message = 'CoinGate Order #' . Tools::getValue('order_id') . ' does not exists';
 
                 $this->logError($error_message, $cart_id);
@@ -70,8 +67,8 @@ class CoingateCallbackModuleFrontController extends ModuleFrontController
             $auth_token = empty($auth_token) ? Configuration::get('COINGATE_API_SECRET') : $auth_token;
             $environment = Configuration::get('COINGATE_TEST') == 1 ? true : false;
 
-            $client = new \CoinGate\Client($auth_token, $environment);
             \CoinGate\Client::setAppInfo('PrestaShop v' . _PS_VERSION_, $this->version);
+            $client = new \CoinGate\Client($auth_token, $environment);
             $cgOrder = $client->order->get(Tools::getValue('id'));
 
             if (!$cgOrder) {

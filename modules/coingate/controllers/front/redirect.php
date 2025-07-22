@@ -38,6 +38,9 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
     public $ssl = true;
     public $version = '2.1.0';
 
+    /** @var Coingate */
+    public $module;
+
     public function initContent()
     {
         parent::initContent();
@@ -49,7 +52,7 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
         }
 
         $total = (float) number_format($cart->getOrderTotal(true, 3), 2, '.', '');
-        $currency = Context::getContext()->currency;
+        $currency = $this->context->currency;
 
         $token = $this->generateToken($cart->id);
 
@@ -71,8 +74,8 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
         $auth_token = empty($auth_token) ? Configuration::get('COINGATE_API_SECRET') : $auth_token;
         $environment = Configuration::get('COINGATE_TEST') == 1 ? true : false;
 
-        $client = new \CoinGate\Client($auth_token, $environment);
         \CoinGate\Client::setAppInfo('PrestaShop v' . _PS_VERSION_, $this->version);
+        $client = new \CoinGate\Client($auth_token, $environment);
         $params = [
             'order_id' => $cart->id,
             'price_amount' => $total,
@@ -93,23 +96,25 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             }
         }
 
+        // Initialize order variable
+        $order = null;
+
         try {
             $order = $client->order->create($params);
         } catch (\CoinGate\Exception\ApiErrorException $e) {
+            // Log error or handle it appropriately
+            $order = null;
         }
 
-        if ($order) {
-            if (!$order->payment_url) {
-                Tools::redirect('index.php?controller=order&step=3');
-            }
+        if ($order && isset($order->payment_url)) {
             $customer = new Customer($cart->id_customer);
             $this->module->validateOrder(
                 $cart->id,
-                Configuration::get('COINGATE_PENDING'),
+                (int) Configuration::get('COINGATE_PENDING'),
                 0,
                 $this->module->displayName,
                 null,
-                null,
+                [],
                 (int) $currency->id,
                 false,
                 $customer->secure_key
@@ -166,7 +171,7 @@ class CoingateRedirectModuleFrontController extends ModuleFrontController
             $shopper['residence_country'] = $country->iso_code;
         }
 
-        return array_filter($shopper, function($value) {
+        return array_filter($shopper, function ($value) {
             return $value !== null && $value !== '';
         });
     }

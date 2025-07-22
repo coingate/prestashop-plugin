@@ -47,7 +47,6 @@ class Coingate extends PaymentModule
         $this->tab = 'payments_gateways';
         $this->version = '2.1.0';
         $this->author = 'CoinGate.com';
-        $this->is_eu_compatible = 1;
         $this->controllers = ['payment', 'redirect', 'callback', 'cancel'];
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
         $this->module_key = 'bbccfdc38891a5f0428161d79b55ce55';
@@ -69,7 +68,6 @@ class Coingate extends PaymentModule
         } elseif (!empty($config['COINGATE_API_SECRET'])) {
             $this->api_auth_token = $config['COINGATE_API_SECRET'];
         }
-
 
         if (!empty($config['COINGATE_TEST'])) {
             $this->test = $config['COINGATE_TEST'];
@@ -101,35 +99,35 @@ class Coingate extends PaymentModule
 
         $order_pending = new OrderState();
         $order_pending->name = array_fill(0, 10, 'Awaiting CoinGate payment');
-        $order_pending->send_email = 0;
-        $order_pending->invoice = 0;
+        $order_pending->send_email = false;
+        $order_pending->invoice = false;
         $order_pending->color = 'RoyalBlue';
         $order_pending->unremovable = false;
-        $order_pending->logable = 0;
+        $order_pending->logable = false;
 
         $order_expired = new OrderState();
         $order_expired->name = array_fill(0, 10, 'CoinGate payment expired');
-        $order_expired->send_email = 0;
-        $order_expired->invoice = 0;
+        $order_expired->send_email = false;
+        $order_expired->invoice = false;
         $order_expired->color = '#DC143C';
         $order_expired->unremovable = false;
-        $order_expired->logable = 0;
+        $order_expired->logable = false;
 
         $order_confirming = new OrderState();
         $order_confirming->name = array_fill(0, 10, 'Awaiting CoinGate payment confirmations');
-        $order_confirming->send_email = 0;
-        $order_confirming->invoice = 0;
+        $order_confirming->send_email = false;
+        $order_confirming->invoice = false;
         $order_confirming->color = '#d9ff94';
         $order_confirming->unremovable = false;
-        $order_confirming->logable = 0;
+        $order_confirming->logable = false;
 
         $order_invalid = new OrderState();
         $order_invalid->name = array_fill(0, 10, 'CoinGate invoice is invalid');
-        $order_invalid->send_email = 0;
-        $order_invalid->invoice = 0;
+        $order_invalid->send_email = false;
+        $order_invalid->invoice = false;
         $order_invalid->color = '#8f0621';
         $order_invalid->unremovable = false;
-        $order_invalid->logable = 0;
+        $order_invalid->logable = false;
 
         if ($order_pending->add()) {
             copy(_PS_ROOT_DIR_ . '/modules/coingate/logo.png', _PS_ROOT_DIR_ . '/img/os/' . (int) $order_pending->id . '.gif');
@@ -163,10 +161,10 @@ class Coingate extends PaymentModule
 
     public function uninstall()
     {
-        $order_state_pending = new OrderState(Configuration::get('COINGATE_PENDING'));
-        $order_state_expired = new OrderState(Configuration::get('COINGATE_EXPIRED'));
-        $order_state_confirming = new OrderState(Configuration::get('COINGATE_CONFIRMING'));
-        $order_state_invalid = new OrderState(Configuration::get('COINGATE_INVALID'));
+        $order_state_pending = new OrderState((int) Configuration::get('COINGATE_PENDING'));
+        $order_state_expired = new OrderState((int) Configuration::get('COINGATE_EXPIRED'));
+        $order_state_confirming = new OrderState((int) Configuration::get('COINGATE_CONFIRMING'));
+        $order_state_invalid = new OrderState((int) Configuration::get('COINGATE_INVALID'));
 
         return
             Configuration::deleteByName('COINGATE_APP_ID')
@@ -227,7 +225,7 @@ class Coingate extends PaymentModule
     {
         $this->html .= $this->displayCoingate();
         $this->context->controller->addCSS($this->_path . '/views/css/tabs.css', 'all');
-        $this->context->controller->addJS($this->_path . '/views/js/javascript.js', 'all');
+        $this->context->controller->addJS($this->_path . '/views/js/javascript.js');
         $this->context->smarty->assign('form', $renderForm);
         return $this->display(__FILE__, 'information.tpl');
     }
@@ -339,14 +337,14 @@ class Coingate extends PaymentModule
                         'type' => 'text',
                         'label' => $this->trans('API Auth Token', [], 'Modules.Coingate.Admin'),
                         'name' => 'COINGATE_API_AUTH_TOKEN',
-                        'desc' =>  $this->trans('Your Auth Token (created on CoinGate)', [], 'Modules.Coingate.Admin'),
+                        'desc' => $this->trans('Your Auth Token (created on CoinGate)', [], 'Modules.Coingate.Admin'),
                         'required' => true,
                     ],
                     [
                         'type' => 'select',
-                        'label' =>  $this->trans('Test Mode', [], 'Modules.Coingate.Admin'),
+                        'label' => $this->trans('Test Mode', [], 'Modules.Coingate.Admin'),
                         'name' => 'COINGATE_TEST',
-                        'desc' =>  $this->trans(
+                        'desc' => $this->trans(
                             '
                                                 To test on sandbox.coingate.com, turn Test Mode "On".
                                                 Please note, for Test Mode you must create a separate account
@@ -407,7 +405,6 @@ class Coingate extends PaymentModule
         $helper->default_form_language = $lang->id;
         $helper->allow_employee_form_lang = (Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG')
             ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0);
-        $this->fields_form = [];
         $helper->id = (int) Tools::getValue('id_carrier');
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'btnSubmit';
