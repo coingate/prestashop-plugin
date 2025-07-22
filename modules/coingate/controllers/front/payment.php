@@ -32,6 +32,9 @@ class CoingatePaymentModuleFrontController extends ModuleFrontController
     public $ssl = true;
     public $display_column_left = false;
 
+    /** @var Coingate */
+    public $module;
+
     public function initContent()
     {
         parent::initContent();
