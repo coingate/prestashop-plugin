@@ -30,3 +30,12 @@ You can receive settlements directly to your bank account in EUR, USD, or GBP—
 2. Based on real-time rates, they’re shown the amount to pay in their chosen cryptocurrency.
 3. After payment confirmation, you receive ~€99 (minus fees) in your CoinGate account.
 4. You can withdraw funds to your bank in EUR, USD, or GBP—or hold them in crypto.
+
+## Installation
+
+First and foremost, you will need to sign up for an account on CoinGate. For production, use our main website: [coingate.com](https://coingate.com). But before you go live, you may want to do some testing, to make sure everything works nicely. For this purpose, we have a sandbox environment: [sandbox.coingate.com](https://sandbox.coingate.com/) – just remember to create an account here even if you already have one on our main website.
+
+The installation of our PrestaShop payment module is quite easy. In order to ensure that CoinGate payment gateway is working properly on your website, we will go over these two quick steps:
+
+* Create [API credentials](https://support.coingate.com/hc/en-us/articles/4402498918546) and configure ["Settlement Currency"](https://support.coingate.com/hc/en-us/articles/21208494395676-How-to-Configure-Settlement-Currency) on CoinGate.
+* Install the CoinGate payment module for PrestaShop.
