@@ -1,4 +1,4 @@
-**Plugin is compatible with PrestaShop 1.7+ or PrestaShop 9+ versions**
+**Compatible with PrestaShop versions 1.7 and above, including 8 and 9.**
 
 # Accept Crypto Payments with CoinGate’s PrestaShop Plugin
 
